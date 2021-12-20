@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@font-face {
+    font-family: 'Roboto';
+    src: local('Roboto'), url('https://fonts.googleapis.com/css2?family=Roboto:ital@1&display=swap'),
+    format('ttf');
+  }
