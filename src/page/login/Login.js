@@ -57,7 +57,7 @@ const Login = () => {
     <div className="w-full flex flex-wrap bg-black">
       <div className="w-2/5 shadow-2xl">
         <div className="flex absolute justify-center m-2 md:justify-start md:-mb-24">
-          <Link to="/" className=" text-white font-bold text-4xl">
+          <Link to="/" className="hidden md:block text-white font-bold text-4xl">
             FITNESS
           </Link>
         </div>

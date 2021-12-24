@@ -14,7 +14,7 @@ import PageSignup from "./page/signUp/signUp"
 const App = () => {
   return (
     <div className="bg-white">
-      {/* <Navbar />
+      <Navbar />
       <div className="items-center">
         <Sticky />
       </div>
@@ -25,8 +25,8 @@ const App = () => {
       <About/>
       <Carousel></Carousel>
       
-      <Footer1 /> */}
-      <PageSignup/>
+      <Footer1 />
+      {/* <PageSignup/> */}
     </div>
   );
 };

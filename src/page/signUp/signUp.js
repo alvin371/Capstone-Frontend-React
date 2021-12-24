@@ -21,8 +21,10 @@ const SignUp = () => {
   const regexEmail =
     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
   const handleChange = (e) => {
+    
     const name = e.target.name;
     const value = e.target.value;
+    console.log(value,name);
     if (name === "nama") {
       if (!regexNama.test(value)) {
         setErrorMassage({
@@ -51,8 +53,8 @@ const SignUp = () => {
       }
     }
     if (name === "confirmPassword") {
-      if (data.password != value.confirmPassword) {
-        setErrorMassage({ ...errorMassage, [name]: "passsword tidak sama" });
+      if (value=="") {
+        setErrorMassage({ ...errorMassage, [name]: "password konfirmasi tidak boleh kosong" });
       } else {
         setErrorMassage({ ...errorMassage, [name]: "" });
       }
@@ -64,7 +66,11 @@ const SignUp = () => {
     if (errorMassage.nama !== "" || errorMassage.email !== "") {
       alert(`Data Pendaftar Tidak Sesuai`);
     } else {
-      alert(`Data Pendaftar "${data.nama}" Berhasil Diterima`);
+      if(data.confirmPassword==data.password){
+        alert(`Data Pendaftar "${data.nama}" Berhasil Diterima`);
+      }else{
+        alert(`password konfirmasi berbeda dengan password`)
+      }
       console.log(data);
       resetForm();
     }
@@ -77,9 +83,9 @@ const SignUp = () => {
   };
 
   return (
-    <div className="w-full flex flex-wrap bg-black">
+    <div className="w-full h-screen flex flex-wrap bg-black">
       <div className="w-2/5 shadow-2xl">
-        <div className="flex absolute justify-center m-2 md:justify-start md:-mb-24">
+        <div className="absolute justify-center hidden md:block m-2 md:justify-start md:-mb-24">
           <Link to="/" className=" text-white font-bold text-4xl">
             FITNESS
           </Link>
@@ -169,18 +175,17 @@ const SignUp = () => {
             <input
               type="submit"
               value="Submit"
-              className="bg-gray rounded-lg text-black font-bold text-lg hover:bg-gray-700 p-2 mt-8 cursor-pointer"
+              className="bg-gray rounded-lg text-black font-bold text-lg hover:bg-gray-700 p-2 mt-8 cursor-pointer hover:bg-gray-dark"
             />
           </form>
           <Link
-            className="text-center pt-3 text-white hover:text-gray"
-            to="/sign-up"
+            className="text-center pt-3 text-white hover:text-gray hover:underline"
+            to="/Login"
           >
             Back Login
           </Link>
         </div>
       </div>
-      {/* Image Section */}
     </div>
   );
 };
