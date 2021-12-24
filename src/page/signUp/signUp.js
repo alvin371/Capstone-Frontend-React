@@ -25,7 +25,7 @@ const SignUp = () => {
     const name = e.target.name;
     const value = e.target.value;
     console.log(value,name);
-    if (name === "nama") {
+    if (name === "name") {
       if (!regexNama.test(value)) {
         setErrorMassage({
           ...errorMassage,
@@ -122,7 +122,7 @@ const SignUp = () => {
               <input
                 required
                 type="text"
-                name="nama"
+                name="name"
                 placeholder="Name"
                 value={data.name}
                 onChange={handleChange}
