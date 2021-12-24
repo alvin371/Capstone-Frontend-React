@@ -26,7 +26,7 @@ const App = () => {
       <Carousel></Carousel>
       
       <Footer1 /> */}
-      <PageLogin/>
+      <PageSignup/>
     </div>
   );
 };

@@ -43,7 +43,7 @@ const Login = () => {
     if (errorMassage.password !== "" || errorMassage.email !== "") {
       alert(`Data Pendaftar Tidak Sesuai`);
     } else {
-      alert(`Data Pendaftar "${data.email}" Berhasil Diterima`);
+      alert(`Data user "${data.email}" Berhasil Diterima`);
       console.log(data);
       resetForm();
     }
