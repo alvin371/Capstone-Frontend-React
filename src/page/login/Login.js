@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../../component/asset/Group1603.png";
+import SideImg from "../../component/asset/sidebargym.jpg";
 
 const Login = () => {
   const baseLogin = {
@@ -63,7 +64,7 @@ const Login = () => {
         </div>
         <img
           className="object-cover w-full opacity-60 h-screen hidden md:block"
-          src="https://s3-alpha-sig.figma.com/img/c95f/6589/f50b8159b0caadf2a92ce33a6ac659ca?Expires=1641168000&Signature=K8zDHJnk7XOdQIiy5U5lbv7ZrHN~s1qrh2QitH1jchMUTYhxwcMtsvqy3vKALd~cdZG3U-jAjcvohBoK9kl0dzqz6FBLR5H1I8xQFhw~p-6IXhnx2slXpqUD0UgzajDqQPlQAPugg0Oc4stlogWq-Su6k6Hjbc-LuTMCpeRFxQSBjwEBCJ8G~y0IbdMu90upK032zBOqyUMoOboVL2oCftWkb7oqEVPd0sM6r5C2F4h8QalrZIdoTRJwnCTNo5HJIi50wLPVOm52mST6bpgpyB1kMHf1sUMCmOWihmNhmFUSuZ03cwYKfoneBpFhxeXSJDZuAOEsx~BZ0UHl1tlXtw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"
+          src={SideImg}
         />
       </div>
       <div className="w-full md:w-3/5 flex flex-col">
