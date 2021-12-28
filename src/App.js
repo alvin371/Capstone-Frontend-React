@@ -7,11 +7,13 @@ import Slogan from "./component/asset/Group4.png";
 import Carousel from "./component/smallComponent/carousel2"
 import About from "./component/smallComponent/about";
 import WhyUs from "./component/smallComponent/whyUs";
+import PageLogin from "./page/login/Login"
+import PageSignup from "./page/signUp/signUp"
 
 const App = () => {
   return (
     <div className="bg-white">
-      <Navbar />
+      {/* <Navbar />
       <div className="items-center">
         <Sticky />
       </div>
@@ -21,8 +23,9 @@ const App = () => {
       <WhyUs />
       <About />
       <Carousel></Carousel>
-
-      <Footer1 />
+      
+      <Footer1 /> */}
+      <PageSignup />
     </div>
   );
 };

@@ -5,7 +5,6 @@ const About = () => {
     <div class="max-w-md mx-auto my-6 bg-white overflow-hidden md:max-w-2xl">
       <div class="md:flex">
         <div class="xl: asp py-8 md:shrink-0">
-          {/* <img class="h-48 w-full object-cover md:h-full md:w-48" src="/img/store.jpg" alt="Man looking at item at a store"/> */}
           <iframe
             class=" md:h-full md:w-48"
             src="https://www.youtube.com/embed/r9jwGansp1E"
