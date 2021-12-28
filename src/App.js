@@ -1,4 +1,3 @@
-import "./x.css";
 import "./index.css";
 import Navbar from "./component/pageComponent/Navbar/Navbar";
 import Footer1 from "./component/smallComponent/footer";
@@ -19,10 +18,10 @@ const App = () => {
       <div class="flex justify-center my-10 ml-10">
         <img src={Slogan} className="h-auto w-auto"></img>
       </div>
-      <WhyUs/>
-      <About/>
+      <WhyUs />
+      <About />
       <Carousel></Carousel>
-      
+
       <Footer1 />
     </div>
   );
