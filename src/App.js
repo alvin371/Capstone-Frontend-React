@@ -11,13 +11,12 @@ import Navbar from "./component/pageComponent/Navbar/Navbar";
 // import PageLogin from "./page/login/Login"
 // import PageSignup from "./page/signUp/signUp"
 import TrainerList from "./page/trainerList/trainerList"
+import Pagination from "./component/smallComponent/pagination"
 
 const App = () => {
   return (
     <div className="bg-white">
-      <Navbar />
       <TrainerList/>
-
     </div>
   );
 };
