@@ -1,6 +1,6 @@
 import "./x.css";
 import "./index.css";
-// import Navbar from "./component/pageComponent/Navbar/Navbar";
+import Navbar from "./component/pageComponent/Navbar/Navbar";
 // import Footer1 from "./component/smallComponent/footer";
 // import Sticky from "./component/smallComponent/sticky";
 // import Slogan from "./component/asset/Group4.png";
@@ -15,18 +15,7 @@ import TrainerList from "./page/trainerList/trainerList"
 const App = () => {
   return (
     <div className="bg-white">
-      {/* <Navbar />
-      <div className="items-center">
-        <Sticky />
-      </div>
-      <div class="flex justify-center my-10 ml-10">
-        <img src={Slogan} className="h-auto w-auto"></img>
-      </div>
-      <WhyUs/>
-      <About/>
-      <Carousel></Carousel>
-      
-      <Footer1 /> */}
+      <Navbar />
       <TrainerList/>
 
     </div>
