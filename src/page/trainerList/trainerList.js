@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Posts from "../../component/smallComponent/post";
 import Pagination from "../../component/smallComponent/pagination";
 import axios from "axios";
+import MiddleImage from "../../component/asset/middleImage.png"
+import Navbar from "../../component/pageComponent/Navbar/Navbar"
 
 const Traininglist = () => {
   const [posts, setPosts] = useState([]);
@@ -29,14 +31,23 @@ const Traininglist = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <div className="mt-5">
-      <h1 className="text-gray-dark mb-3">My Blog</h1>
-      <Posts posts={currentPosts} loading={loading} />
-      <div className="flex justify-center -mx-5">
+    <div className="bg-black m-0">
+      <Navbar/>
+     
+      <img
+      src={MiddleImage}
+      className="w-full  pt-5 pb-10 opacity-70"
+      />
+     <div class=" text-white  opacity-80 font-bold text-3xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">“Work Hard try hard pay hard and be something”</div>
+  
+      <h1 className="text-gray font-bold text-center text-4xl mt-12 mb-8">Trainer List</h1>
+      <Posts posts={currentPosts} loading={loading} className="my-3"/>
+      <div className="flex justify-center mt-10 -mx-5">
         <Pagination
           postsPerPage={postsPerPage}
           totalPosts={posts.length}
           paginate={paginate}
+          
         />
       </div>
     </div>

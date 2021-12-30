@@ -75,7 +75,7 @@ const Navbar = () => {
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="mr-2 p-1 absolute right-0 w-60 mt-2 origin-top-right md:hidden bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+            <Menu.Items className="mr-2 p-1 absolute z-10 right-0 w-60 mt-2 origin-top-right md:hidden bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
               <div className="p-3 ">
                 <nav class="grid gap-y-8">
                   <Link
