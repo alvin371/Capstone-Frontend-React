@@ -12,7 +12,7 @@ export default function BasicPagination({ postsPerPage, totalPosts, paginate }) 
   };
 
   return (
-    <Stack spacing={2}>
+    <Stack  spacing={2}>
       <Pagination count={totalPages} defaultPage={page} onChange={handleChange} />
     </Stack>
   );
