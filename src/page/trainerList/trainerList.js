@@ -4,9 +4,9 @@ import Boxlist from '../../component/smallComponent/boxList'
 
 const TrainerList = () => {
     return (
-        <div >
+        <div className="bg-black">
             <Navbar/>
-            {/* <Boxlist/> */}
+            <Boxlist/>
         </div>
     )
 }
