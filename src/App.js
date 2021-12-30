@@ -14,8 +14,8 @@ import PageSignup from "./page/signUp/signUp"
 const App = () => {
   return (
     <div className="bg-white">
-      {/* <Navbar />
-      <div className="items-center">
+      <Navbar />
+      {/* <div className="items-center">
         <Sticky />
       </div>
       <div class="flex justify-center my-10 ml-10">
@@ -26,7 +26,7 @@ const App = () => {
       <Carousel></Carousel>
       
       <Footer1 /> */}
-      <PageSignup/>
+      {/* <PageSignup/> */}
     </div>
   );
 };
