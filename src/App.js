@@ -1,7 +1,7 @@
 import "./x.css";
 import "./index.css";
 import Navbar from "./component/pageComponent/Navbar/Navbar";
-// import Footer1 from "./component/smallComponent/footer";
+import Footer1 from "./component/smallComponent/footer";
 // import Sticky from "./component/smallComponent/sticky";
 // import Slogan from "./component/asset/Group4.png";
 

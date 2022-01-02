@@ -4,6 +4,7 @@ import Pagination from "../../component/smallComponent/pagination";
 import axios from "axios";
 import MiddleImage from "../../component/asset/middleImage.png"
 import Navbar from "../../component/pageComponent/Navbar/Navbar"
+import Footer from "../../component/smallComponent/footer";
 
 const Traininglist = () => {
   const [posts, setPosts] = useState([]);
@@ -36,13 +37,13 @@ const Traininglist = () => {
      
       <img
       src={MiddleImage}
-      className="w-full  pt-5 pb-10 opacity-70"
+      className="w-full pt-5 pb-10 opacity-70 xl:h-auto md:h-auto sm:h-96"
       />
-     <div class=" text-white  opacity-80 font-bold text-3xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">“Work Hard try hard pay hard and be something”</div>
+     <div class=" text-white text-center opacity-80 font-bold md:text-3xl xl:text-3xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 sm:text-xl">“Work Hard try hard pay hard and be something”</div>
   
       <h1 className="text-gray font-bold text-center text-4xl mt-12 mb-8">Trainer List</h1>
       <Posts posts={currentPosts} loading={loading} className="my-3"/>
-      <div className="flex justify-center mt-10 -mx-5">
+      <div className="flex justify-center mt-10 -mx-5 mb-10">
         <Pagination
           postsPerPage={postsPerPage}
           totalPosts={posts.length}
@@ -50,6 +51,7 @@ const Traininglist = () => {
           
         />
       </div>
+      <Footer/>
     </div>
   );
 };

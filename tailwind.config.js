@@ -33,7 +33,13 @@ module.exports = {
     fontFamily: {
       'roboto': ['Roboto']
     },
-    extend: {},
+    extend: {
+      borderOpacity: {
+        '10': '0.1',
+        '20': '0.2',
+        '95': '0.95',
+       }
+    },
 
   },
   variants: {
