@@ -23,7 +23,7 @@ const Navbar = () => {
             Home
           </Link>
           <Link
-            to="/Membership"
+            to="/membership"
             className="text-base font-medium p-4 hover:text-gray-dark"
           >
             Membership
