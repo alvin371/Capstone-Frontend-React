@@ -12,11 +12,13 @@ import Footer1 from "./component/smallComponent/footer";
 // import PageSignup from "./page/signUp/signUp"
 import TrainerList from "./page/trainerList/trainerList"
 import Pagination from "./component/smallComponent/pagination"
+import Membership from "./page/membership/membership"
+import Card from "./component/smallComponent/cardMember"
 
 const App = () => {
   return (
-    <div className="bg-white">
-      <TrainerList/>
+    <div className="bg-black">
+      <Membership/>
     </div>
   );
 };
