@@ -1,17 +1,19 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter } from "react-router-dom";
+import { StyledEngineProvider } from '@mui/material/styles';
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
+  <StyledEngineProvider injectFirst>
   <BrowserRouter>
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
   </BrowserRouter>
-  ,
-  document.getElementById('root')
+  </StyledEngineProvider>,
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function
