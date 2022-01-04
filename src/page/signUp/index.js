@@ -22,10 +22,9 @@ const SignUp = () => {
   const regexEmail =
     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
   const handleChange = (e) => {
-    
     const name = e.target.name;
     const value = e.target.value;
-    console.log(value,name);
+    console.log(value, name);
     if (name === "name") {
       if (!regexNama.test(value)) {
         setErrorMassage({
@@ -54,8 +53,11 @@ const SignUp = () => {
       }
     }
     if (name === "confirmPassword") {
-      if (value=="") {
-        setErrorMassage({ ...errorMassage, [name]: "password konfirmasi tidak boleh kosong" });
+      if (value == "") {
+        setErrorMassage({
+          ...errorMassage,
+          [name]: "password konfirmasi tidak boleh kosong",
+        });
       } else {
         setErrorMassage({ ...errorMassage, [name]: "" });
       }
@@ -67,10 +69,10 @@ const SignUp = () => {
     if (errorMassage.nama !== "" || errorMassage.email !== "") {
       alert(`Data Pendaftar Tidak Sesuai`);
     } else {
-      if(data.confirmPassword==data.password){
+      if (data.confirmPassword == data.password) {
         alert(`Data Pendaftar "${data.nama}" Berhasil Diterima`);
-      }else{
-        alert(`password konfirmasi berbeda dengan password`)
+      } else {
+        alert(`password konfirmasi berbeda dengan password`);
       }
       console.log(data);
       resetForm();
@@ -181,7 +183,7 @@ const SignUp = () => {
           </form>
           <Link
             className="text-center pt-3 text-white hover:text-gray hover:underline"
-            to="/Login"
+            to="/sign-in"
           >
             Back Login
           </Link>
