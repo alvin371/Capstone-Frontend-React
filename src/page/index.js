@@ -10,3 +10,4 @@ export { default as NewsPage } from "./content/news";
 export { default as Videos } from "./content/videos";
 export { default as ClassesOnline } from "./classes/online";
 export { default as ClassesOffline } from "./classes/offline";
+export { default as Payment } from "./payment";

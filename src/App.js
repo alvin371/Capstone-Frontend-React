@@ -13,6 +13,7 @@ import {
   ClassesOnline,
   NewsPage,
   Videos,
+  Payment
 } from "./page";
 import { Route, Routes } from "react-router-dom";
 
@@ -28,6 +29,7 @@ const App = () => {
       <Route path="/booking-offline" exact element={<BookOffline />} />
       <Route path="/news" exact element={<NewsPage />} />
       <Route path="/videos" exact element={<Videos />} />
+      <Route path="/payment" exact element={<Payment />} />
     </Routes>
   );
 };
