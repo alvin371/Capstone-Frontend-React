@@ -8,6 +8,7 @@
     "@emotion/styled": "^11.6.0",
     "@headlessui/react": "^1.4.2",
     "@heroicons/react": "^1.0.5",
+    "@mui/icons-material": "^5.2.5",
     "@mui/material": "^5.2.6",
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "@testing-library/jest-dom": "^5.14.1",
