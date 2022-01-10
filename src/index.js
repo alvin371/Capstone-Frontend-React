@@ -7,11 +7,11 @@ import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
   <StyledEngineProvider injectFirst>
-  <BrowserRouter>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  </BrowserRouter>
+    <BrowserRouter>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </BrowserRouter>
   </StyledEngineProvider>,
   document.getElementById("root")
 );
