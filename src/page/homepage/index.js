@@ -5,10 +5,11 @@ import FitnessLogo from "../../component/asset/Header.png";
 import Stycky from "../../component/smallComponent/sticky";
 import WhyUs from "../../component/smallComponent/whyUs";
 import About from "../../component/smallComponent/about"
+import CaraouselHome from "../../component/smallComponent/carouselHome"
 
 const HomePage = () => {
   return (
-    <div className="bg-black h-full space-y-6">
+    <div className="bg-black h-full space-y-20">
       <Navbar />
       <img
         src={FitnessLogo}
@@ -26,6 +27,7 @@ const HomePage = () => {
         ABOUT US
       </h1>
       <About/>
+      <CaraouselHome/>
       <Footer />
     </div>
   );
