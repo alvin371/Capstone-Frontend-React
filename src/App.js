@@ -19,6 +19,7 @@ import { Route, Routes } from "react-router-dom";
 const App = () => {
   return (
     <Routes>
+      <Route path="/" exact element={<HomePage />} />
       <Route path="/trainer-list" exact element={<TrainerList />} />
       <Route path="/sign-in" exact element={<Login />} />
       <Route path="/sign-up" exact element={<SignUp />} />

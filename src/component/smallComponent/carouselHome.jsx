@@ -22,9 +22,10 @@ const Carousel2 = () => {
   }
 
   return (
-    <div class="flex justify-between space-x-auto m-6 py-4 border-t-2 border-b-2">
+    <div class="flex justify-between space-x-2 m-6 py-4 border-t-2 border-b-2 border-gray-dark">
+     
          <svg
-        className={current!=0?"control-2 w-10 h-10 ml-2 md:ml-10 cursor-pointer text-3xl font-bold text-black hover:text-white rounded-full bg-white hover:bg-blue-700 leading-tight text-center z-10 inset-y-0 left-0 my-auto":"hidden"}
+        className={current!=0?"control-2 w-10 h-10 ml-2 md:ml-10 cursor-pointer text-3xl font-bold text-black hover:text-white rounded-full bg-white hover:bg-blue-700 leading-tight text-center z-10 inset-y-0 left-0 my-auto":"hidden " }
         fill="none"
         onClick={prevSlide}
         stroke="currentColor"
@@ -66,10 +67,10 @@ const Carousel2 = () => {
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeWidth={2}
-          
           d="M9 5l7 7-7 7"
         />
       </svg>
+
     </div>
   );
 };
