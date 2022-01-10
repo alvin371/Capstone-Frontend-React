@@ -1,6 +1,7 @@
 import { Menu, Transition } from '@headlessui/react'
-import { Fragment, useEffect, useRef, useState } from 'react'
+import { Fragment} from 'react'
 import { ChevronDownIcon } from '@heroicons/react/solid'
+import { Link } from 'react-router-dom'
 
 export default function Example() {
   return (
@@ -15,6 +16,7 @@ export default function Example() {
             />
           </Menu.Button>
         </div>
+        
         <Transition
           as={Fragment}
           enter="transition ease-out duration-100"
@@ -28,7 +30,8 @@ export default function Example() {
             <div className="px-1 py-1 ">
               <Menu.Item>
                 {({ active }) => (
-                  <button
+                  <Link
+                  to="/classes/online"
                     className={`text-base  font-medium ${
                       active ? ' text-black' : 'text-gray-dark'
                     } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
@@ -45,14 +48,15 @@ export default function Example() {
                       />
                     )}
                     Online
-                  </button>
+                  </Link>
                 )}
               </Menu.Item>
               <Menu.Item>
                 {({ active }) => (
-                  <button
+                  <Link
+                  to="/classes/offline"
                     className={`text-base  font-medium ${
-                      active ? 'bg-gray text-gray-dark' : 'text-black'
+                      active ? ' text-black' : 'text-gray-dark'
                     } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
                   >
                     {active ? (
@@ -67,7 +71,7 @@ export default function Example() {
                       />
                     )}
                     Offline
-                  </button>
+                  </Link>
                 )}
               </Menu.Item>
             </div>
@@ -87,8 +91,8 @@ function EditInactiveIcon(props) {
     >
       <path
         d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
-        fill="#c4c4c4"
-        stroke="#c60000"
+        fill="white"
+        stroke="red"
         strokeWidth="2"
       />
     </svg>
@@ -100,7 +104,7 @@ function EditActiveIcon(props) {
     <svg
       {...props}
       viewBox="0 0 25 25"
-      fill="none"
+      fill="red"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
@@ -123,8 +127,8 @@ function DuplicateInactiveIcon(props) {
     >
       <path
         d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-        fill="#EDE9FE"
-        stroke="#A78BFA"
+        fill="white"
+        stroke="red"
         strokeWidth="2"
       />
     </svg>
@@ -141,9 +145,9 @@ function DuplicateActiveIcon(props) {
     >
       <path
         d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-        fill="#8B5CF6"
-        stroke="#C4B5FD"
-        strokeWidth="2"
+        fill="#e2e2e2"
+        stroke="red"
+        strokeWidth="1"
       />
     </svg>
   )

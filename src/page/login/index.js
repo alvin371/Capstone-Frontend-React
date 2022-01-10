@@ -29,7 +29,7 @@ const Login = () => {
       }
     }
     if (name === "password") {
-      if (value.length > 0) {
+      if (value.length < 8) {
         setErrorMassage({
           ...errorMassage,
           [name]: "password kurang dari 8 karakter",
@@ -55,10 +55,13 @@ const Login = () => {
     setErrorMassage(baseError);
   };
   return (
-    <div className="w-full flex flex-wrap bg-black">
+    <div className="w-full  h-screen flex flex-wrap bg-black">
       <div className="w-2/5 shadow-2xl">
         <div className="flex absolute justify-center m-2 md:justify-start md:-mb-24">
-          <Link to="/" className="hidden md:block text-white font-bold text-4xl">
+          <Link
+            to="/"
+            className="hidden md:block text-white font-bold text-4xl"
+          >
             FITNESS
           </Link>
         </div>
@@ -129,11 +132,11 @@ const Login = () => {
             <input
               type="submit"
               value="Submit"
-              className="bg-gray rounded-lg text-black font-bold text-lg hover:bg-gray-700 p-2 mt-8 cursor-pointer"
+              className="bg-gray rounded-lg text-black font-bold text-lg hover:bg-gray-dark p-2 mt-8 cursor-pointer"
             />
           </form>
           <Link
-            className="text-center pt-3 text-white hover:text-gray"
+            className="text-center pt-3 text-white hover:text-gray hover:underline "
             to="/sign-up"
           >
             Register here

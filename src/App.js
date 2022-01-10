@@ -1,32 +1,35 @@
 import "./index.css";
-import Navbar from "./component/pageComponent/Navbar/Navbar";
-import Footer1 from "./component/smallComponent/footer";
-import Sticky from "./component/smallComponent/sticky";
-import Slogan from "./component/asset/Group4.png";
-
-import Carousel from "./component/smallComponent/carousel2"
-import About from "./component/smallComponent/about";
-import WhyUs from "./component/smallComponent/whyUs";
-import PageLogin from "./page/login/Login"
-import PageSignup from "./page/signUp/signUp"
+import {
+  Login,
+  SignUp,
+  Membership,
+  HomePage,
+  TrainerList,
+  Account,
+  BookOnline,
+  BookOffline,
+  ClassesOffline,
+  ClassesOnline,
+  NewsPage,
+  NewsDetail,
+  Videos,
+} from "./page";
+import { Route, Routes } from "react-router-dom";
 
 const App = () => {
   return (
-    <div className="bg-white">
-      {/* <Navbar />
-      <div className="items-center">
-        <Sticky />
-      </div>
-      <div class="flex justify-center my-10 ml-10">
-        <img src={Slogan} className="h-auto w-auto"></img>
-      </div>
-      <WhyUs />
-      <About />
-      <Carousel></Carousel>
-      
-      <Footer1 /> */}
-      <PageSignup />
-    </div>
+    <Routes>
+      <Route path="/trainer-list" exact element={<TrainerList />} />
+      <Route path="/sign-in" exact element={<Login />} />
+      <Route path="/sign-up" exact element={<SignUp />} />
+      <Route path="/account" exact element={<SignUp />} />
+      <Route path="/membership" exact element={<Membership />} />
+      <Route path="/booking-online" exact element={<BookOnline />} />
+      <Route path="/booking-offline" exact element={<BookOffline />} />
+      <Route path="/news" exact element={<NewsPage />} />
+      <Route path="/news-detail" exact element={<NewsDetail />} />
+      <Route path="/videos" exact element={<Videos />} />
+    </Routes>
   );
 };
 export default App;
