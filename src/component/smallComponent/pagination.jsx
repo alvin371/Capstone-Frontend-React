@@ -13,7 +13,7 @@ export default function BasicPagination({ postsPerPage, totalPosts, paginate }) 
 
   return (
     <Stack  spacing={2} className="mb-3">
-      <Pagination count={totalPages} defaultPage={page} onChange={handleChange} color="secondary" className="bg-gray rounded-full opacity-70"/>
+      <Pagination count={totalPages} defaultPage={page} onChange={handleChange} color="primary" className="bg-gray rounded-full opacity-70 "/>
     </Stack>
   );
 }
