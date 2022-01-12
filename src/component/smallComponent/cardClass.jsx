@@ -3,13 +3,15 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import Modal from "../../component/smallComponent/modal";
 
 const CardClass = ({ posts, loading }) => {
   if (loading) {
     return <h2>Loading...</h2>;
   }
+  var but_style =
+    "rounded-xl bg-red mx-auto font-semibold mb-1 text-white hover:text-gray hover:bg-red-dark";
 
   return (
     <div className="mt-6 mx-6 justify-center grid grid-cols-2 gap-y-10 gap-x-6 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
@@ -33,22 +35,35 @@ const CardClass = ({ posts, loading }) => {
               component="div"
               className="text-white text-center"
             >
-              Lizard
+              {post.author}
             </Typography>
-            <Typography variant="body2" className="text-gray">
-              Lizards are a widespread group of squamate reptiles, with over
-              6,000 species, ranging across all continents except Antarctica
-            </Typography>
+            <div className="space-x-1">
+              <Typography variant="body2" className="inline text-gray font-semibold ">
+                Name
+              </Typography>
+              <Typography variant="body2" className="inline text-gray font-semibold ">
+                :
+              </Typography>
+              <Typography variant="body2" className=" inline text-gray">
+                {post.author}
+              </Typography>
+            </div>
+            <div className="space-x-1">
+              <Typography variant="body2" className="inline text-gray font-semibold ">
+                Date
+              </Typography>
+              <Typography variant="body2" className="inline text-gray font-semibold ">
+                :
+              </Typography>
+              <Typography variant="body2" className=" inline text-gray">
+                {post.url}
+              </Typography>
+            </div>
           </CardContent>
           <CardActions>
-            <Button
-              variant="contained"
-              size="large"
-              
-              className="rounded-xl bg-red mx-auto font-semibold mb-1 hover:text-gray hover:bg-red-dark"
-            >
-              Detail
-            </Button>
+            <div className="mx-auto">
+              <Modal but_style={but_style} post={post}/>
+            </div>
           </CardActions>
         </Card>
       ))}
