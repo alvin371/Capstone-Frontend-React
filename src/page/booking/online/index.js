@@ -51,7 +51,7 @@ const BookOnline = () => {
             <Search page={page} />
           </div>
         </div>
-        <h1 className="text-gray font-bold text-center text-4xl mt-12 mb-8 corner">
+        <h1 className="text-gray font-bold text-center text-4xl mt-12 mb-8">
           Trainer List
         </h1>
         <Card posts={currentPosts} loading={loading} className="my-3" />
