@@ -9,7 +9,7 @@ import Card from "../../../component/smallComponent/cardClass";
 import TestimonyBest from "../../../component/smallComponent/testimonyBest";
 
 const BookOnline = () => {
-  const page = "Book Online";
+  const page = "Online";
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -52,9 +52,9 @@ const BookOnline = () => {
           </div>
         </div>
         <h1 className="text-gray font-bold text-center text-4xl mt-12 mb-8">
-          Trainer List
+          Online Classes List
         </h1>
-        <Card posts={currentPosts} loading={loading} className="my-3" />
+        <Card posts={currentPosts} loading={loading} page={page} className="my-3" />
         <div className="flex justify-center mt-10 -mx-5 ">
           <Pagination
             postsPerPage={postsPerPage}

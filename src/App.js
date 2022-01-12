@@ -26,7 +26,7 @@ const App = () => {
       <Route path="/account" exact element={<SignUp />} />
       <Route path="/membership" exact element={<Membership />} />
       <Route path="/classes/online" exact element={<BookOnline />} />
-      <Route path="/booking-offline" exact element={<BookOffline />} />
+      <Route path="/classes/offline" exact element={<BookOffline />} />
       <Route path="content/news" exact element={<NewsPage />} />
       <Route path="/news-detail" exact element={<NewsDetail />} />
       <Route path="/videos" exact element={<Videos />} />

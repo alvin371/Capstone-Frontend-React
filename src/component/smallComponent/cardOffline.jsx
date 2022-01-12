@@ -4,7 +4,7 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import Modal from "../../component/smallComponent/modal";
+import Modal from "../../component/smallComponent/modalOff";
 
 const CardClass = ({ posts, loading, page }) => {
   if (loading) {
@@ -40,7 +40,7 @@ const CardClass = ({ posts, loading, page }) => {
             </Typography>
             <div className="space-x-1">
               <Typography variant="body2" className="inline text-gray font-semibold ">
-                Name
+                Trainer Name
               </Typography>
               <Typography variant="body2" className="inline text-gray font-semibold ">
                 :
@@ -51,7 +51,7 @@ const CardClass = ({ posts, loading, page }) => {
             </div>
             <div className="space-x-1">
               <Typography variant="body2" className="inline text-gray font-semibold ">
-                Date
+                Location
               </Typography>
               <Typography variant="body2" className="inline text-gray font-semibold ">
                 :

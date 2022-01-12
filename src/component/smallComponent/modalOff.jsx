@@ -6,6 +6,8 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import TextField from "@mui/material/TextField";
+import Stack from "@mui/material/Stack";
 
 const style = {
   position: "absolute",
@@ -21,7 +23,7 @@ const style = {
   pb: 3,
 };
 
-function ChildModal({ but_style, post }) {
+function ChildModal({ but_style, post,date,time }) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
     setOpen(true);
@@ -69,10 +71,12 @@ function ChildModal({ but_style, post }) {
               On
             </h5>
             <h5 className="font-medium inline">:</h5>
-            <h5 className="font-medium inline"></h5>
+            <h5 className="font-medium inline">{date},{time}</h5>
           </div>
 
-          <Button onClick={handleClose} className={but_style}>Agree</Button>
+          <Button onClick={handleClose} className={but_style}>
+            Agree
+          </Button>
           <Button onClick={handleClose}>DISAgree</Button>
         </Box>
       </Modal>
@@ -82,6 +86,7 @@ function ChildModal({ but_style, post }) {
 
 export default function NestedModal({ but_style, post }) {
   const [date, setDate] = React.useState("");
+  const [time,setTime]=React.useState("07:30");
 
   const handleChangeDate = (event) => {
     setDate(event.target.value);
@@ -95,6 +100,11 @@ export default function NestedModal({ but_style, post }) {
   const handleClose = () => {
     setOpen(false);
   };
+  const handleChangeTime=(e)=>{
+    console.log(e.target.value)
+    setTime(e.target.value);
+
+  }
 
   return (
     <div>
@@ -128,26 +138,42 @@ export default function NestedModal({ but_style, post }) {
           <p id="parent-modal-description"></p>
           <p className="text-base font-medium">TRAINER NAME</p>
           <p id="parent-modal-description"></p>
-          <p className="text-base font-medium">PARTICIPANT</p>
+          <p className="text-base font-medium">GYM CLASSES</p>
           <p id="parent-modal-description"></p>
-          <p className="text-base font-medium">TIME</p>
+          <p className="text-base font-medium">CHOOSE DATE AND HOUR</p>
           <p id="parent-modal-description"></p>
 
           <Box sx={{ minWidth: 120 }}>
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Date</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={date}
-                label="Date"
-                onChange={handleChangeDate}
-              >
-                <MenuItem value="monday">Monday</MenuItem>
-              </Select>
-            </FormControl>
+            <Stack component="form" noValidate spacing={3}>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Date</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={date}
+                  label="Date"
+                  onChange={handleChangeDate}
+                >
+                  <MenuItem value="monday">Monday</MenuItem>
+                </Select>
+              </FormControl>
+              <TextField
+                id="time"
+                label="Alarm clock"
+                type="time"
+                defaultValue="07:30"
+                onChange={handleChangeTime}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                inputProps={{
+                  step: 300, // 5 min
+                }}
+                sx={{ width: 150 }}
+              />
+            </Stack>
           </Box>
-          <ChildModal but_style={but_style} post={post.author} />
+          <ChildModal date={date} time={time} but_style={but_style} post={post.author} />
         </Box>
       </Modal>
     </div>
