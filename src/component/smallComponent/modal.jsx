@@ -73,6 +73,7 @@ function ChildModal({ but_style, post }) {
           </div>
 
           <Button onClick={handleClose} className={but_style}>Agree</Button>
+          <Button onClick={handleClose}>DISAgree</Button>
         </Box>
       </Modal>
     </React.Fragment>
