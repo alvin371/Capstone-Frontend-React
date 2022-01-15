@@ -1,9 +1,21 @@
 import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import Logo from "../../component/asset/Group1603.png";
-import SideImg from "../../component/asset/sidebargym.jpg";
+import Logo from "../../component/asset/Logo.png";
+import PropTypes from 'prop-types';
 
-const Login = () => {
+async function loginUser(credentials) {
+  return fetch('http://localhost:8080/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(credentials)
+  })
+    .then(data => data.json())
+ }
+
+const Login = ({setToken}) => {
+
   const baseLogin = {
     email: "",
     password: "",
@@ -40,12 +52,16 @@ const Login = () => {
     }
     setData({ ...data, [name]: value });
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async e => {
     if (errorMassage.password !== "" || errorMassage.email !== "") {
       alert(`Data Pendaftar Tidak Sesuai`);
     } else {
       alert(`Data user "${data.email}" Berhasil Diterima`);
       console.log(data);
+      const token = await loginUser({
+        data
+    });
+    setToken(token);
       resetForm();
     }
     e.preventDefault();
@@ -67,7 +83,7 @@ const Login = () => {
         </div>
         <img
           className="object-cover w-full opacity-60 h-screen hidden md:block"
-          src={SideImg}
+          src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
         />
       </div>
       <div className="w-full md:w-3/5 flex flex-col">
@@ -146,5 +162,8 @@ const Login = () => {
     </div>
   );
 };
+Login.propTypes = {
+  setToken: PropTypes.func.isRequired
+}
 
 export default Login;

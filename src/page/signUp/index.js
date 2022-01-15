@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import Logo from "../../component/asset/Group1603.png";
+import Logo from "../../component/asset/Logo.png";
 import SideImg from "../../component/asset/sidebargym.jpg";
 
 const SignUp = () => {

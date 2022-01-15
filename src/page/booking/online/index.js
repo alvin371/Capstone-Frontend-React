@@ -5,11 +5,10 @@ import Header from "../../../component/asset/HeaderOnline.png";
 import Footer1 from "../../../component/smallComponent/footer";
 import Search from "../../../component/smallComponent/search";
 import Pagination from "../../../component/smallComponent/pagination";
-import Card from "../../../component/smallComponent/cardClass";
+import Card from "../../../component/smallComponent/cardClasses";
 import TestimonyBest from "../../../component/smallComponent/testimonyBest";
 
-const BookOnline = () => {
-  const page = "Online";
+const BookOnline = ({ state }) => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -37,24 +36,36 @@ const BookOnline = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <div className="bg-black bg-cover w-full space-y-10">
-      <Navbar />
-      <div className="space-y-10">
-        <img
-          src={Header}
-          alt="mid header"
-          className="w-full py-2 opacity-60 "
-        />
-        <div class=" text-gray text-center opacity-80 font-bold md:text-3xl xl:text-3xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 sm:text-xl">
-          WHAT CLASS
+    <>
+      <div
+        className=" bg-cover bg-no-repeat bg-inherit	h-screen pb-20"
+        style={{
+          backgroundImage:
+            state === "online"
+              ? `url("https://images.unsplash.com/photo-1598136490941-30d885318abd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1469&q=80")`
+              : `url("https://images.unsplash.com/photo-1598136490937-f77b0ce520fe?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1469&q=80")`,
+        }}
+      >
+        <Navbar />
+      </div>
+      <div className="justify-center space-y-10">
+        <div class=" text-gray-light text-center opacity-80 font-bold md:text-3xl xl:text-3xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 sm:text-xl hover:opacity-100">
+          Search Class
           <div>
-            <Search page={page} />
+            <Search state={state} />
           </div>
         </div>
-        <h1 className="text-gray font-bold text-center text-4xl mt-12 mb-8">
-          Online Classes List
-        </h1>
-        <Card posts={currentPosts} loading={loading} page={page} className="my-3" />
+        <div class="flex mx-auto">
+          <h1 class="uppercase mt-10 mb-2 relative inline-block font-bold text-4xl corner mx-auto text-center text-gray-dark">
+            {state} Workout
+          </h1>
+        </div>
+        <Card
+          posts={currentPosts}
+          loading={loading}
+          state={state}
+          className="my-3"
+        />
         <div className="flex justify-center mt-10 -mx-5 ">
           <Pagination
             postsPerPage={postsPerPage}
@@ -62,13 +73,15 @@ const BookOnline = () => {
             paginate={paginate}
           />
         </div>
-        <h1 className="text-gray font-bold text-center text-4xl ">
-          Testimony
-        </h1>
-        <TestimonyBest />
-        <Footer1 />
+        <div class="flex mx-auto">
+          <h1 class="uppercase mt-10 mb-2 relative inline-block font-bold text-4xl corner mx-auto text-center text-gray-dark">
+            Testimony
+          </h1>
+        </div>
       </div>
-    </div>
+      <TestimonyBest />
+      <Footer1 />
+    </>
   );
 };
 
