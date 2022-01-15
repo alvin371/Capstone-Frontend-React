@@ -33,6 +33,9 @@ module.exports = {
       'gray-dark': '#686565',
       'gray': '#c4c4c4',
       'gray-light': '#d3dce6',
+      'blue':'#89cff0',
+      'blue-dark':'#0818A8',
+      'green-jade':'#00A36C'
     },
     fontFamily: {
       'roboto': ['Roboto']

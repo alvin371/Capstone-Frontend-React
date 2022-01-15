@@ -100,11 +100,11 @@ export default function NestedModal({ but_style, post }) {
     <div>
       <Button
         variant="contained"
-        size="medium"
+        size="small"
         onClick={handleOpen}
         className={but_style}
       >
-        DESCRIPTION
+        Booking
       </Button>
       <Modal
         open={open}
