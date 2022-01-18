@@ -6,6 +6,7 @@ import IconButton from "@mui/material/IconButton";
 import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
+import { Link } from "react-router-dom";
 
 
 const HomePage = ({auth,setAuth}) => {
@@ -33,7 +34,11 @@ const HomePage = ({auth,setAuth}) => {
           size="large"
           className=" mt-2 font-semibold bg-gradient-to-r from-red-dark to-red"
         >
-          Get Started
+          <Link
+          to="/sign-in"
+          >
+              Get Started
+          </Link>
         </Button>
         <Stack spacing={2} direction="row" className="justify-start">
           <IconButton color="primary" aria-label="delete" >

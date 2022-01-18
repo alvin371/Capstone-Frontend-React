@@ -9,5 +9,4 @@ export { default as BookOffline } from "./booking/offline";
 export { default as NewsPage } from "./content/news";
 export { default as NewsDetail } from "./content/news/detail/index";
 export { default as Videos } from "./content/videos";
-export { default as ClassesOnline } from "./classes/online";
-export { default as ClassesOffline } from "./classes/offline";
+

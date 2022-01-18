@@ -13,13 +13,19 @@ const BookOnline = ({ state }) => {
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(10);
-
+  const [link,setLink]=useState("https://picsum.photos/v2/list?page=2&limit=100")
+  
   useEffect(() => {
     const fetchPosts = async () => {
+      
       setLoading(true);
-      const res = await axios.get(
-        "https://picsum.photos/v2/list?page=2&limit=100"
+      if(state==="offline"){
+        setLink("https://picsum.photos/v2/list?page=4&limit=100")
+      }
+      const res = await axios.get(link
       );
+      console.log(link);
+
       setPosts(res.data);
       setLoading(false);
     };
