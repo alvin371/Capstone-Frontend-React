@@ -13,6 +13,7 @@ import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
 import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 import Badge from "@mui/material/Badge";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
+import Account from "../../../page/account/index"
 
 const navigation = [
   { name: "Homepage", href: "/", current: true },
@@ -125,6 +126,8 @@ export default function Example({auth,setAuth}) {
                                 </Link>
                               )}
                             </Menu.Item>
+                           
+                            
                             <Menu.Item>
                               {({ active }) => (
                                 <Link
@@ -189,23 +192,25 @@ export default function Example({auth,setAuth}) {
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                   >
-                    <Menu.Items className="z-10 origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <Menu.Items className="z-10 origin-top-right absolute right-0 mt-2 w-60 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                       {auth ? (
                         <>
                           <Menu.Item>
-                            {({ active }) => (
-                              <Link
-                                to="/account"
+                         
+                              <h1
                                 className={classNames(
-                                  active ? "bg-gray-100" : "",
+                                  
                                   "block px-4 py-2 text-sm text-gray-gray"
                                 )}
                               >
                                 <AccountBoxIcon className="mr-4" />
                                 Your Profile
-                              </Link>
-                            )}
+                              </h1>
+                    
                           </Menu.Item>
+                          <Menu.Item>
+                            <Account></Account>
+                            </Menu.Item>
                           <form
                             method="POST"
                             action="#"
@@ -218,8 +223,8 @@ export default function Example({auth,setAuth}) {
                                   onClick={handleOut}
                                   className={classNames(
                                     active
-                                      ? "bg-gray-100 text-gray-900"
-                                      : "text-gray-700",
+                                      ? "text-red"
+                                      : "",
                                     "block w-full text-left px-4 py-2 text-sm"
                                   )}
                                 >

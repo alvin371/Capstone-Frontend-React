@@ -13,7 +13,7 @@ const cardClasses = ({ posts, loading, state }) => {
       {posts.map((post) => (
         <div class="rounded-xl each mb-10 m-2 shadow-lg border-gray-dark bg-white relative focus:ring-blue hover:shadow-2xl hover:border-blue">
           <img
-            class="rounded-t-xl w-full"
+            class="rounded-t-xl w-full xl:h-52 lg:h-44 md:h-32 sm"
             src={post.download_url}
             alt=""
           />

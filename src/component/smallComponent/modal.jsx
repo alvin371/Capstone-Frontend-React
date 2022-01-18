@@ -6,6 +6,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import DatePicker from "./datePicker"
 
 const style = {
   position: "absolute",
@@ -21,64 +22,57 @@ const style = {
   pb: 3,
 };
 
-function ChildModal({ but_style, post }) {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
+// function ChildModal({ but_style, post }) {
+//   const [open, setOpen] = React.useState(false);
+//   const handleOpen = () => {
+//     setOpen(true);
+//   };
+//   const handleClose = () => {
+//     setOpen(false);
+//   };
 
-  return (
-    <React.Fragment>
-      <Button
-        variant="contained"
-        size="medium"
-        onClick={handleOpen}
-        className={but_style}
-      >
-        BOOKING
-      </Button>
-      <Modal
-        hideBackdrop
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="child-modal-title"
-        aria-describedby="child-modal-description"
-      >
-        <Box sx={{ ...style, width: 300 }} className="space-y-4">
-          <h2
-            id="child-modal-title"
-            className="text-center font-bold text-red-dark"
-          >
-            CONFIRMATION
-          </h2>
-          <h5 id="child-modal-description" className="font-medium">
-            Make a meeting agreement
-          </h5>
-          <div className="space-x-2">
-            <h5 id="child-modal-description" className="font-medium inline">
-              Class Name
-            </h5>
-            <h5 className="font-medium inline">:</h5>
-            <h5 className="font-medium inline"></h5>
-          </div>
-          <div className="space-x-2">
-            <h5 id="child-modal-description" className="font-medium inline">
-              On
-            </h5>
-            <h5 className="font-medium inline">:</h5>
-            <h5 className="font-medium inline"></h5>
-          </div>
+//   return (
+//     <React.Fragment>
+      
+//       <Modal
+//         hideBackdrop
+//         open={open}
+//         onClose={handleClose}
+//         aria-labelledby="child-modal-title"
+//         aria-describedby="child-modal-description"
+//       >
+//         <Box sx={{ ...style, width: 300 }} className="space-y-4">
+//           <h2
+//             id="child-modal-title"
+//             className="text-center font-bold text-red-dark"
+//           >
+//             CONFIRMATION
+//           </h2>
+//           <h5 id="child-modal-description" className="font-medium">
+//             Make a meeting agreement
+//           </h5>
+//           <div className="space-x-2">
+//             <h5 id="child-modal-description" className="font-medium inline">
+//               Class Name
+//             </h5>
+//             <h5 className="font-medium inline">:</h5>
+//             <h5 className="font-medium inline"></h5>
+//           </div>
+//           <div className="space-x-2">
+//             <h5 id="child-modal-description" className="font-medium inline">
+//               On
+//             </h5>
+//             <h5 className="font-medium inline">:</h5>
+//             <h5 className="font-medium inline"></h5>
+//           </div>
 
-          <Button onClick={handleClose} className={but_style}>Agree</Button>
-          <Button onClick={handleClose}>DISAgree</Button>
-        </Box>
-      </Modal>
-    </React.Fragment>
-  );
-}
+//           <Button onClick={handleClose} className={but_style}>Agree</Button>
+//           <Button onClick={handleClose}>DISAgree</Button>
+//         </Box>
+//       </Modal>
+//     </React.Fragment>
+//   );
+// }
 
 export default function NestedModal({ but_style, post }) {
   const [date, setDate] = React.useState("");
@@ -114,27 +108,23 @@ export default function NestedModal({ but_style, post }) {
       >
         <Box
           sx={{ ...style, width: 400 }}
-          className="space-y-4 rounded-sm border-0"
+          className="space-y-4 border-0 rounded-xl"
         >
-          <img className="rounded-lg" src={post.download_url} />
-
           <h2
             id="parent-modal-title"
-            className="text-lg font-medium text-center"
+            className="text-xl font-bold text-center text-red"
           >
-            {post.author}
+            Confirmation Status
           </h2>
-          <p className="text-base font-medium">DESCRIPTION CLASS</p>
-          <p id="parent-modal-description"></p>
-          <p className="text-base font-medium">TRAINER NAME</p>
-          <p id="parent-modal-description"></p>
-          <p className="text-base font-medium">PARTICIPANT</p>
-          <p id="parent-modal-description"></p>
-          <p className="text-base font-medium">TIME</p>
-          <p id="parent-modal-description"></p>
-
+          
+          <p id="parent-modal-description" className="font-semibold py-4 text-gray-dark">
+            Hi, here are the results of the class to be booked with the following details and please choose your schedule
+          </p>
+          <p className="text-base font-medium">Class Name</p>
+          <p  className="text-sm font-normal">{post.author}</p>
+          <p className="text-base font-medium">Scheduling</p>
           <Box sx={{ minWidth: 120 }}>
-            <FormControl fullWidth>
+            {/* <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label">Date</InputLabel>
               <Select
                 labelId="demo-simple-select-label"
@@ -145,9 +135,17 @@ export default function NestedModal({ but_style, post }) {
               >
                 <MenuItem value="monday">Monday</MenuItem>
               </Select>
-            </FormControl>
+            </FormControl> */}
+            <DatePicker/>
           </Box>
-          <ChildModal but_style={but_style} post={post.author} />
+          <Button
+        variant="contained"
+        size="medium"
+        // onClick={handleOpen}
+        className={but_style}
+      >
+        BOOKING
+      </Button>
         </Box>
       </Modal>
     </div>
