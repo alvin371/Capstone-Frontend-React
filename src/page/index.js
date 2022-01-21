@@ -1,6 +1,6 @@
 export { default as Account } from "./account";
 export { default as Login } from "./login";
-export { default as SignUp } from "./signUp";
+export { default as Register } from "./signUp";
 export { default as TrainerList } from "./trainerList";
 export { default as Membership } from "./membership";
 export { default as HomePage } from "./homepage";

@@ -1,4 +1,4 @@
-import { Fragment, useState, useEffect } from "react";
+import { Fragment } from "react";
 import * as React from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
@@ -14,6 +14,8 @@ import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 import Badge from "@mui/material/Badge";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import Account from "../../../page/account/index"
+import { useSelector, useDispatch } from "react-redux"
+import { SignOut } from '../../../store/modules/auth/actions/authAction'
 
 const navigation = [
   { name: "Homepage", href: "/", current: true },
@@ -27,17 +29,24 @@ function classNames(...classes) {
 
 
 export default function Example({auth,setAuth}) {
+  const currentState = useSelector((state) => state);
+  const { isAuthenticated, currentUser } = currentState.Auth;
   
-  const [invisible, setInvisible] = React.useState(false);
+  const dispatch = useDispatch()
+
+  const logoutUser  = () => dispatch(SignOut());
+  
+
 
   const CheckNotif = () => {
-    if (auth != true) {
+    if (isAuthenticated != true) {
       alert("not yet login");
     }
   };
 
-  const handleOut = ()=>{
-    localStorage.clear();
+  const handleOut = (e)=>{
+    e.preventDefault()
+    logoutUser()
   }
 
   const handleChange = (event) => {
@@ -160,8 +169,8 @@ export default function Example({auth,setAuth}) {
                   <Badge
                     color="secondary"
                     variant="dot"
-                    invisible={invisible}
-                    className={invisible ? "" : "animate-pulse"}
+                    invisible={isAuthenticated?false:true}
+                    className={isAuthenticated? "animate-pulse" : ""}
                   >
                     <NotificationsActiveIcon />
                   </Badge>
@@ -172,10 +181,10 @@ export default function Example({auth,setAuth}) {
                   <div>
                     <Menu.Button className="bg-gray-dark flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-dark focus:ring-white">
                       <span className="sr-only">Open user menu</span>
-                      {auth ? (
+                      {currentUser && currentUser.avatar_path? (
                         <img
                           className="h-8 w-8 rounded-full"
-                          src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                          src={currentUser.avatar_path}
                           alt=""
                         />
                       ) : (
@@ -193,7 +202,7 @@ export default function Example({auth,setAuth}) {
                     leaveTo="transform opacity-0 scale-95"
                   >
                     <Menu.Items className="z-10 origin-top-right absolute right-0 mt-2 w-60 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                      {auth ? (
+                      {isAuthenticated ? (
                         <>
                           <Menu.Item>
                          

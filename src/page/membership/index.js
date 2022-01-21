@@ -31,21 +31,28 @@ const products = [
 
 const membership = () => {
   return (
-    <div className="bg-black">
-      <Navbar />
+ 
+   
+    
+    <div>
+      
       <div className="space-y-20">
-        <img
-          src={Header}
-          alt="header"
-          className="w-full py-10 opacity-70 xl:h-auto md:h-auto sm:h-96"
-        />
-        <div class=" text-white text-center opacity-80 font-bold md:text-3xl xl:text-3xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 sm:text-xl">
-          “Work Hard try hard pay hard and be something”
+      <div
+        className=" bg-cover bg-no-repeat bg-inherit	h-screen pb-20"
+        style={{
+          backgroundImage:`url("https://images.unsplash.com/photo-1605296867724-fa87a8ef53fd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80")`,
+        }}
+      >
+      <Navbar />
+      </div>
+        <div class=" text-white text-center opacity-80 font-bold md:text-3xl xl:text-4xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 sm:text-xl">
+          “I strongly believe that through dedication and perseverance, one can overcome adversity to achieve success. ”
         </div>
-
-        <h1 className="text-gray font-bold text-center text-4xl mt-6 mb-8">
+        <div class="flex mx-auto">
+          <h1 class="uppercase mt-10 mb-2 relative inline-block font-bold text-4xl corner mx-auto text-center text-gray-dark">
           Membership
-        </h1>
+          </h1>
+        </div>
         <div className="m-6 space-x-10 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8 sm:space-x-0 xl:justify-center">
           {products.map((product) => (
             <Card product={product} />

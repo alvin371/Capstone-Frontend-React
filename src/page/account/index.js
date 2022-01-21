@@ -1,29 +1,118 @@
-import React from "react";
+import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
+import {
+  updateUserAvatar,
+  updateUser,
+  deleteUser,
+} from "../../store/modules/auth/actions/authAction";
+import { useSelector, useDispatch } from "react-redux";
 
-
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import {storage} from "../../firebase/firebase"
 
 const Account = () => {
+  const currentUserState = useSelector((state) => state.Auth);
+  // const [image, setImage] = useState("");
+  const [editState, setEditState] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const formHandler = (e) => {
+    e.preventDefault();
+    const file = e.target[0].files[0];
+    uploadFiles(file);
+  };
+  const uploadFiles = (file) => {
+    //
+    if (!file) return;
+    const sotrageRef = ref(storage, `files/${file.name}`);
+    const uploadTask = uploadBytesResumable(sotrageRef, file);
+
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const prog = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        setProgress(prog);
+      },
+      (error) => console.log(error),
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          console.log("File available at", downloadURL);
+          setUser({...user,
+            new_avatar:downloadURL})
+        });
+      }
+    );
+  };
+  const openEdit = () => {
+    setEditState(!editState);
+  };
+  // const AuthID = currentUserState.currentUser
+  //   ? currentUserState.currentUser.id
+  //   : "";
+  const dispatch = useDispatch();
+  // const userAvatarUpdate = (userDetails) => dispatch(updateUserAvatar(userDetails))
+  const userUpdate = (userDetails) =>
+    dispatch(updateUser(userDetails, clearInput));
+  const clearInput = () => {
+    setUser({
+      ...user,
+      new_name: "",
+      new_goals: "",
+      new_avatar: "",
+    });
+  };
+
+  const [user, setUser] = useState({
+    email: currentUserState.currentUser.email,
+    membership: currentUserState.currentUser.membership,
+    role: currentUserState.currentUser.role,
+    new_name: "",
+    new_goals: "",
+    new_avatar: "",
+  });
+
+  const handleChange = (e) => {
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const submitUser = (e) => {
+    e.preventDefault();
+    userUpdate({
+      email: user.email,
+      name: user.name,
+      membership: user.membership,
+      role: user.role,
+      goals: user.new_goals,
+      avatar: user.new_avatar,
+    });
+  };
+
   return (
     <>
       <div class="text-center p-6  border-b">
         <img
           class="h-24 w-24 rounded-full mx-auto"
-          src="https://randomuser.me/api/portraits/men/24.jpg"
-          alt="Randy Robertson"
+          src={currentUserState.currentUser.avatar}
+          alt={currentUserState.currentUser.name}
         />
-        <p class="pt-2 text-lg font-semibold">Randy Robertson</p>
-        <p class="text-sm ">randy.robertson@example.com</p>
+        <p class="pt-2 text-lg font-semibold">
+          {currentUserState.currentUser.name}
+        </p>
+        <p class="text-sm ">{user.email}</p>
         <div class="mt-4">
-          <Link
+          <button
             to="/"
             class="border rounded-full py-2 px-4 text-xs font-semibold text-white bg-red hover:bg-red-dark"
+            onClick={openEdit}
           >
             Edit Profile
-          </Link>
+          </button>
         </div>
       </div>
-      <div class="border-b">
+      <div class={editState ? "hidden" : "border-b"}>
         <a href="#" class="mt-2 px-4 py-2 hover:bg-gray flex">
           <div class="text-gray-800">
             <svg
@@ -42,7 +131,9 @@ const Account = () => {
             <p class="text-sm font-medium text-gray-800 leading-none">
               Membership Status
             </p>
-            <p class="text-xs text-gray-500">Add/manage users &amp; teams</p>
+            <p class="text-xs text-gray-500">
+              {currentUserState.currentUser.membership}
+            </p>
           </div>
         </a>
         <a href="#" class="px-4 py-2 hover:bg-gray flex">
@@ -60,8 +151,10 @@ const Account = () => {
             </svg>
           </div>
           <div class="pl-3">
-            <p class="text-sm font-medium text-gray-800 leading-none">Gender</p>
-            <p class="text-xs text-gray-500">Usage, billing, branding, teams</p>
+            <p class="text-sm font-medium text-gray-800 leading-none">Role</p>
+            <p class="text-xs text-gray-500">
+              {currentUserState.currentUser.role}
+            </p>
           </div>
         </a>
         <a href="#" class="px-4 py-2 mb-2 hover:bg-gray flex">
@@ -83,23 +176,65 @@ const Account = () => {
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-               
                 d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z"
               />{" "}
             </svg>
           </div>
           <div class="pl-3">
-            <p class="text-sm font-medium text-gray-800 leading-none">
-              Goals
+            <p class="text-sm font-medium text-gray-800 leading-none">Goals</p>
+            <p class="text-xs text-gray-500">
+              {currentUserState.currentUser.goals}
             </p>
-            <p class="text-xs text-gray-500">Email, profile, notifications</p>
           </div>
         </a>
-    
-      </div>
-
-      <div class="">
-  
+        <div className={editState ? "" : "hidden"}>
+          <form onSubmit={submitUser}>
+            <div class="mb-4">
+              <label class="block text-md font-light mb-2" for="new_name">
+                Name
+              </label>
+              <input
+                class="w-full bg-drabya-gray border-gray appearance-none border p-4 font-light leading-tight focus:outline-none focus:shadow-outline"
+                type="text"
+                name="new_name"
+                value={user.new_name}
+                onChange={handleChange}
+                placeholder="name"
+              />
+            </div>
+            <div class="mb-4">
+              <label class="block text-md font-light mb-2" for="new_goals">
+                Goals
+              </label>
+              <input
+                class="w-full bg-drabya-gray border-gray appearance-none border p-4 font-light leading-tight focus:outline-none focus:shadow-outline"
+                type="text"
+                name="new_goals"
+                onChange={handleChange}
+                value={user.new_goals}
+                placeholder="goals"
+              />
+            </div>
+            <div class="mb-4">
+              <form onSubmit={formHandler}>
+                <input
+                  // allows you to reach into your file directory and upload image to the browser
+                  type="file"
+                />
+                <button className="bg-green-jade w-20" type="submit">Upload images</button>
+              </form>
+              <h2>Uploading done {progress}%</h2>
+            </div>
+            <div class="flex items-center justify-between mb-5">
+              <button
+                class="bg-blue hover:bg-blue-dark text-white font-light py-2 px-6 rounded focus:outline-none focus:shadow-outline"
+                type="submit"
+              >
+                Submit
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </>
   );

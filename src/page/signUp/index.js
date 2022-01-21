@@ -2,22 +2,29 @@ import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../../component/asset/Logo.png";
 import SideImg from "../../component/asset/sidebargym.jpg";
+import { useSelector, useDispatch } from "react-redux";
 
-const SignUp = () => {
-  const baseSignUp = {
-    email: "",
-    name: "",
-    password: "",
-    confirmPassword: "",
-  };
+import { SignUp } from '../../store/modules/auth/actions/authAction';
+
+
+const Register = () => {
+  const currentState = useSelector((state) => state.Auth);
+  const [user, setUser] = useState({
+    name:'',
+    email: '',
+    password: '',
+    phone_number:''
+  });
+
   const baseError = {
     email: "",
     name: "",
     password: "",
     confirmPassword: "",
   };
+  const dispatch = useDispatch()
+  const addUser = (credentials) => dispatch(SignUp(credentials))
   const [errorMassage, setErrorMassage] = useState(baseError);
-  const [data, setData] = useState(baseSignUp);
   const regexNama = /^[A-Za-z ]*$/;
   const regexEmail =
     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -62,28 +69,38 @@ const SignUp = () => {
         setErrorMassage({ ...errorMassage, [name]: "" });
       }
     }
-    setData({ ...data, [name]: value });
+    setUser({
+      ...user,
+      [name]: value
+    })
   };
+  if(currentState.isAuthenticated){
+    return <Link to='/' />
+  }
 
   const handleSubmit = (e) => {
-    if (errorMassage.nama !== "" || errorMassage.email !== "") {
-      alert(`Data Pendaftar Tidak Sesuai`);
+    if (errorMassage.name !== "" || errorMassage.email !== "") {
+      alert(`user Pendaftar Tidak Sesuai`);
     } else {
-      if (data.confirmPassword == data.password) {
-        alert(`Data Pendaftar "${data.nama}" Berhasil Diterima`);
-      } else {
-        alert(`password konfirmasi berbeda dengan password`);
-      }
-      console.log(data);
-      resetForm();
+      // if (user.confirmPassword == user.password) {
+        alert(`user Pendaftar "${user.name}" Berhasil Diterima`);
+      // } else {
+      //   alert(`password konfirmasi berbeda dengan password`);
+      // }
+      console.log(user);
+      e.preventDefault()
+      addUser({
+        username: user.name,
+        email: user.email,
+        password: user.password,
+        phone_number:user.phone_number
+      });
+ 
     }
     e.preventDefault();
   };
 
-  const resetForm = () => {
-    setData(baseSignUp);
-    setErrorMassage(baseError);
-  };
+ 
 
   return (
     <div className="w-full h-screen flex flex-wrap bg-black">
@@ -127,10 +144,15 @@ const SignUp = () => {
                 type="text"
                 name="name"
                 placeholder="Name"
-                value={data.name}
+                value={user.name}
                 onChange={handleChange}
                 className="shadow appearance-none border bg-black border-white text-white rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
               />
+               { currentState.signupError && currentState.signupError.Taken_username ? (
+              <small className="text-red">{ currentState.signupError.Taken_username }</small>
+              ) : (
+                ""
+              )}
             </div>
             <div className="flex flex-col pt-4">
               <input
@@ -138,26 +160,41 @@ const SignUp = () => {
                 required
                 name="email"
                 placeholder="@ email"
-                value={data.email}
+                value={user.email}
                 onChange={handleChange}
                 className="shadow appearance-none border bg-black border-white text-white rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
               />
+               { currentState.signupError && currentState.signupError.Invalid_email ? (
+              <small className="text-red">{ currentState.signupError.Invalid_email }</small>
+              ) : (
+                ""
+            )}
+            { currentState.signupError && currentState.signupError.Taken_email ? (
+              <small className="text-red">{ currentState.signupError.Taken_email }</small>
+              ) : (
+                ""
+            )}
             </div>
             <div className="flex flex-col pt-4">
               <input
                 type="password"
                 name="password"
-                value={data.password}
+                value={user.password}
                 onChange={handleChange}
                 placeholder="Password"
                 className="shadow appearance-none border bg-black border-white text-white rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
               />
+              { currentState.signupError && currentState.signupError.Invalid_password ? (
+              <small className="text-red">{ currentState.signupError.Invalid_password }</small>
+              ) : (
+                ""
+              )}
             </div>
             <div className="flex flex-col pt-4">
               <input
-                type="password"
-                name="confirmPassword"
-                value={data.confirmPassword}
+                type="number"
+                name="phone_number"
+                value={user.phone_number}
                 onChange={handleChange}
                 placeholder="Confirmation password"
                 className="shadow appearance-none border bg-black border-white text-white rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
@@ -175,11 +212,18 @@ const SignUp = () => {
                 return null;
               })}
             </ul>
-            <input
+            { currentState.isLoading ? 
+            (<button disabled className="bg-gray rounded-lg text-black font-bold text-lg hover:bg-gray-700 p-2 mt-8 cursor-pointer hover:bg-gray-dark">
+              register....
+            </button>)
+            :
+            ( <input
               type="submit"
               value="Submit"
               className="bg-gray rounded-lg text-black font-bold text-lg hover:bg-gray-700 p-2 mt-8 cursor-pointer hover:bg-gray-dark"
-            />
+            />)
+            }
+           
           </form>
           <Link
             className="text-center pt-3 text-white hover:text-gray hover:underline"
@@ -193,4 +237,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default Register;
