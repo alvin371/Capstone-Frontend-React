@@ -2,7 +2,6 @@ import React from "react";
 import Navbar from "../../component/pageComponent/Navbar/Navbar";
 import Premium from "../../component/asset/premiumMembership.png";
 import Regular from "../../component/asset/regularMembership.png";
-import Header from "../../component/asset/headerMembership.png";
 import Card from "../../component/smallComponent/cardMember";
 import Footer from "../../component/smallComponent/footer";
 

@@ -37,12 +37,13 @@ export const SignUp = (newUser) => {
     return async (dispatch) => {
         dispatch({ type: BEFORE_STATE }) 
       try {
-        await axios.post(`${API_ROUTE}/register`, newUser);
+        await axios.post(`${API_ROUTE}/user/register`, newUser);
         dispatch({ type: SIGNUP_SUCCESS })
-        history.push('/login');
+        history.push('/sign in');
       } catch(err) {
-        alert("error status "+err.response.status+" try again to fill the data")
-        dispatch({ type: SIGNUP_ERROR, payload: err.response.data.error })
+        alert(err)
+
+        dispatch({ type: SIGNUP_ERROR, payload: err })
     }
   }
 }

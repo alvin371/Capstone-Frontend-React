@@ -1,9 +1,9 @@
-import React, { Fragment, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+// import { Link } from "react-router-dom";
 import {
-  updateUserAvatar,
-  updateUser,
-  deleteUser,
+  // updateUserAvatar,
+  updateUser
+  // deleteUser,
 } from "../../store/modules/auth/actions/authAction";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -112,7 +112,8 @@ const Account = () => {
           </button>
         </div>
       </div>
-      <div class={editState ? "hidden" : "border-b"}>
+      <div class= "border-b">
+        <div class={editState ? "hidden" : ""}>
         <a href="#" class="mt-2 px-4 py-2 hover:bg-gray flex">
           <div class="text-gray-800">
             <svg
@@ -187,6 +188,7 @@ const Account = () => {
             </p>
           </div>
         </a>
+        </div>
         <div className={editState ? "" : "hidden"}>
           <form onSubmit={submitUser}>
             <div class="mb-4">

@@ -1,6 +1,5 @@
 import "./index.css";
-import Navbar from "./component/pageComponent/Navbar/Navbar";
-import { Fragment, useState, useEffect } from "react";
+
 import * as React from "react";
 import {
   Login,
@@ -8,11 +7,11 @@ import {
   Membership,
   HomePage,
   TrainerList,
-  Account,
+  // Account,
   BookOnline,
-  BookOffline,
-  ClassesOffline,
-  ClassesOnline,
+  // BookOffline,
+  // ClassesOffline,
+  // ClassesOnline,
   NewsPage,
   NewsDetail,
   Videos,

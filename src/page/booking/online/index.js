@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Navbar from "../../../component/pageComponent/Navbar/Navbar";
-import Header from "../../../component/asset/HeaderOnline.png";
 import Footer1 from "../../../component/smallComponent/footer";
 import Search from "../../../component/smallComponent/search";
 import Pagination from "../../../component/smallComponent/pagination";

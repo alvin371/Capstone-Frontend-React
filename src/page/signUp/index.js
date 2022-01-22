@@ -4,26 +4,23 @@ import Logo from "../../component/asset/Logo.png";
 import SideImg from "../../component/asset/sidebargym.jpg";
 import { useSelector, useDispatch } from "react-redux";
 
-import { SignUp } from '../../store/modules/auth/actions/authAction';
-
+import { SignUp } from "../../store/modules/auth/actions/authAction";
 
 const Register = () => {
   const currentState = useSelector((state) => state.Auth);
   const [user, setUser] = useState({
-    name:'',
-    email: '',
-    password: '',
-    phone_number:''
+    username: "",
+    email: "",
+    password: "",
   });
 
   const baseError = {
     email: "",
-    name: "",
+    username: "",
     password: "",
-    confirmPassword: "",
   };
-  const dispatch = useDispatch()
-  const addUser = (credentials) => dispatch(SignUp(credentials))
+  const dispatch = useDispatch();
+  const addUser = (credentials) => dispatch(SignUp(credentials));
   const [errorMassage, setErrorMassage] = useState(baseError);
   const regexNama = /^[A-Za-z ]*$/;
   const regexEmail =
@@ -59,48 +56,30 @@ const Register = () => {
         setErrorMassage({ ...errorMassage, [name]: "" });
       }
     }
-    if (name === "confirmPassword") {
-      if (value == "") {
-        setErrorMassage({
-          ...errorMassage,
-          [name]: "password konfirmasi tidak boleh kosong",
-        });
-      } else {
-        setErrorMassage({ ...errorMassage, [name]: "" });
-      }
-    }
     setUser({
       ...user,
-      [name]: value
-    })
+      [name]: value,
+    });
   };
-  if(currentState.isAuthenticated){
-    return <Link to='/' />
+  if (currentState.isAuthenticated) {
+    return <Link to="/" />;
   }
 
   const handleSubmit = (e) => {
-    if (errorMassage.name !== "" || errorMassage.email !== "") {
+    if (errorMassage.username !== "" || errorMassage.email !== "") {
       alert(`user Pendaftar Tidak Sesuai`);
     } else {
-      // if (user.confirmPassword == user.password) {
-        alert(`user Pendaftar "${user.name}" Berhasil Diterima`);
-      // } else {
-      //   alert(`password konfirmasi berbeda dengan password`);
-      // }
+      alert(`user Pendaftar "${user.name}" Berhasil Diterima`);
       console.log(user);
-      e.preventDefault()
+      e.preventDefault();
       addUser({
-        username: user.name,
+        username: user.username,
         email: user.email,
         password: user.password,
-        phone_number:user.phone_number
       });
- 
     }
     e.preventDefault();
   };
-
- 
 
   return (
     <div className="w-full h-screen flex flex-wrap bg-black">
@@ -142,14 +121,17 @@ const Register = () => {
               <input
                 required
                 type="text"
-                name="name"
-                placeholder="Name"
-                value={user.name}
+                name="username"
+                placeholder="username"
+                value={user.username}
                 onChange={handleChange}
                 className="shadow appearance-none border bg-black border-white text-white rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
               />
-               { currentState.signupError && currentState.signupError.Taken_username ? (
-              <small className="text-red">{ currentState.signupError.Taken_username }</small>
+              {currentState.signupError &&
+              currentState.signupError.Taken_username ? (
+                <small className="text-red">
+                  {currentState.signupError.Taken_username}
+                </small>
               ) : (
                 ""
               )}
@@ -164,16 +146,22 @@ const Register = () => {
                 onChange={handleChange}
                 className="shadow appearance-none border bg-black border-white text-white rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
               />
-               { currentState.signupError && currentState.signupError.Invalid_email ? (
-              <small className="text-red">{ currentState.signupError.Invalid_email }</small>
+              {currentState.signupError &&
+              currentState.signupError.Invalid_email ? (
+                <small className="text-red">
+                  {currentState.signupError.Invalid_email}
+                </small>
               ) : (
                 ""
-            )}
-            { currentState.signupError && currentState.signupError.Taken_email ? (
-              <small className="text-red">{ currentState.signupError.Taken_email }</small>
+              )}
+              {currentState.signupError &&
+              currentState.signupError.Taken_email ? (
+                <small className="text-red">
+                  {currentState.signupError.Taken_email}
+                </small>
               ) : (
                 ""
-            )}
+              )}
             </div>
             <div className="flex flex-col pt-4">
               <input
@@ -184,13 +172,16 @@ const Register = () => {
                 placeholder="Password"
                 className="shadow appearance-none border bg-black border-white text-white rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
               />
-              { currentState.signupError && currentState.signupError.Invalid_password ? (
-              <small className="text-red">{ currentState.signupError.Invalid_password }</small>
+              {currentState.signupError &&
+              currentState.signupError.Invalid_password ? (
+                <small className="text-red">
+                  {currentState.signupError.Invalid_password}
+                </small>
               ) : (
                 ""
               )}
             </div>
-            <div className="flex flex-col pt-4">
+            {/* <div className="flex flex-col pt-4">
               <input
                 type="number"
                 name="phone_number"
@@ -199,7 +190,7 @@ const Register = () => {
                 placeholder="Confirmation password"
                 className="shadow appearance-none border bg-black border-white text-white rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
               />
-            </div>
+            </div> */}
             <ul>
               {Object.keys(errorMassage).map((key) => {
                 if (errorMassage[key] !== "") {
@@ -212,18 +203,20 @@ const Register = () => {
                 return null;
               })}
             </ul>
-            { currentState.isLoading ? 
-            (<button disabled className="bg-gray rounded-lg text-black font-bold text-lg hover:bg-gray-700 p-2 mt-8 cursor-pointer hover:bg-gray-dark">
-              register....
-            </button>)
-            :
-            ( <input
-              type="submit"
-              value="Submit"
-              className="bg-gray rounded-lg text-black font-bold text-lg hover:bg-gray-700 p-2 mt-8 cursor-pointer hover:bg-gray-dark"
-            />)
-            }
-           
+            {currentState.isLoading ? (
+              <button
+                disabled
+                className="bg-gray rounded-lg text-black font-bold text-lg hover:bg-gray-700 p-2 mt-8 cursor-pointer hover:bg-gray-dark"
+              >
+                register....
+              </button>
+            ) : (
+              <input
+                type="submit"
+                value="Submit"
+                className="bg-gray rounded-lg text-black font-bold text-lg hover:bg-gray-700 p-2 mt-8 cursor-pointer hover:bg-gray-dark"
+              />
+            )}
           </form>
           <Link
             className="text-center pt-3 text-white hover:text-gray hover:underline"
