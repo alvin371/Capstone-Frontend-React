@@ -20,7 +20,7 @@ import { SignOut } from '../../../store/modules/auth/actions/authAction'
 const navigation = [
   { name: "Homepage", href: "/", current: true },
   { name: "Membership", href: "/membership", current: false },
-  { name: "News", href: "/news", current: false },
+  { name: "News", href: "/content/news", current: false },
 ];
 
 function classNames(...classes) {

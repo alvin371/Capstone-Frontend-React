@@ -1,5 +1,4 @@
 import "./index.css";
-
 import * as React from "react";
 import {
   Login,
@@ -7,20 +6,12 @@ import {
   Membership,
   HomePage,
   TrainerList,
-  // Account,
   BookOnline,
-  // BookOffline,
-  // ClassesOffline,
-  // ClassesOnline,
   NewsPage,
   NewsDetail,
   Videos,
 } from "./page";
-import { Route, Routes,useLocation } from "react-router-dom";
-
-
-
-
+import { Route, Routes} from "react-router-dom";
 const App = () => {
   return (
     <Routes>
