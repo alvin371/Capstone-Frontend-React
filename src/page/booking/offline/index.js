@@ -39,14 +39,14 @@ const BookOffline = () => {
         <Navbar />
       </div>
       <div className="justify-center space-y-10">
-        <div class=" text-gray-light text-center opacity-80 font-bold md:text-3xl xl:text-3xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 sm:text-xl hover:opacity-100">
+        <div className=" text-gray-light text-center opacity-80 font-bold md:text-3xl xl:text-3xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 sm:text-xl hover:opacity-100">
           Search Class
           <div>
             <Search />
           </div>
         </div>
-        <div class="flex mx-auto">
-          <h1 class="uppercase mt-10 mb-2 relative inline-block font-bold text-4xl corner mx-auto text-center text-gray-dark">
+        <div className="flex mx-auto">
+          <h1 className="uppercase mt-10 mb-2 relative inline-block font-bold text-4xl corner mx-auto text-center text-gray-dark">
             Offline Workout
           </h1>
         </div>
@@ -58,8 +58,8 @@ const BookOffline = () => {
             paginate={paginate}
           />
         </div>
-        <div class="flex mx-auto">
-          <h1 class="uppercase mt-10 mb-2 relative inline-block font-bold text-4xl corner mx-auto text-center text-gray-dark">
+        <div className="flex mx-auto">
+          <h1 className="uppercase mt-10 mb-2 relative inline-block font-bold text-4xl corner mx-auto text-center text-gray-dark">
             Testimony
           </h1>
         </div>

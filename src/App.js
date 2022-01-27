@@ -11,8 +11,9 @@ import {
   BookOffline,
   NewsDetail,
   Videos,
+  EditedAccount
 } from "./page";
-import { Route, Routes} from "react-router-dom";
+import { Route, Routes,Navigate} from "react-router-dom";
 const App = () => {
   return (
     <Routes>
@@ -34,6 +35,8 @@ const App = () => {
       <Route path="content/news" exact element={<NewsPage />} />
       <Route path="/news-detail" exact element={<NewsDetail />} />
       <Route path="/videos" exact element={<Videos />} />
+      <Route path="/user/edited" exact element={<EditedAccount />} />
+      <Route path="*" element={<Navigate replace to="/" />} />
     </Routes>
   );
 };

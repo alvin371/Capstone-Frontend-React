@@ -2,11 +2,7 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import DatePicker from "./datePicker"
+// import DatePicker from "./datePicker"
 
 const style = {
   position: "absolute",
@@ -75,11 +71,11 @@ const style = {
 // }
 
 export default function NestedModal({ but_style, post }) {
-  const [date, setDate] = React.useState("");
+  // const [date, setDate] = React.useState("");
 
-  const handleChangeDate = (event) => {
-    setDate(event.target.value);
-  };
+  // const handleChangeDate = (event) => {
+  //   setDate(event.target.value);
+  // };
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
@@ -123,21 +119,9 @@ export default function NestedModal({ but_style, post }) {
           <p className="text-base font-medium">Class Name</p>
           <p  className="text-sm font-normal">{post.author}</p>
           <p className="text-base font-medium">Scheduling</p>
-          <Box sx={{ minWidth: 120 }}>
-            {/* <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Date</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={date}
-                label="Date"
-                onChange={handleChangeDate}
-              >
-                <MenuItem value="monday">Monday</MenuItem>
-              </Select>
-            </FormControl> */}
+          {/* <Box sx={{ minWidth: 120 }}>
             <DatePicker/>
-          </Box>
+          </Box> */}
           <Button
         variant="contained"
         size="medium"

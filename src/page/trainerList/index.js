@@ -40,7 +40,7 @@ const Traininglist = () => {
         src={MiddleImage}
         className="w-full pt-5 pb-10 opacity-70 xl:h-auto md:h-auto sm:h-96"
       />
-      <div class=" text-white text-center opacity-80 font-bold md:text-3xl xl:text-3xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 sm:text-xl">
+      <div className=" text-white text-center opacity-80 font-bold md:text-3xl xl:text-3xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 sm:text-xl">
         “Work Hard try hard pay hard and be something”
       </div>
 

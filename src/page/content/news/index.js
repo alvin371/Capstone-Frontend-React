@@ -44,20 +44,20 @@ const NewsPage = () => {
         <Navbar />
       </div>
       <div className="justify-center space-y-10">
-        <div class=" text-gray-light text-center opacity-80 font-bold md:text-3xl xl:text-3xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 sm:text-xl hover:opacity-100">
+        <div className=" text-gray-light text-center opacity-80 font-bold md:text-3xl xl:text-3xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 sm:text-xl hover:opacity-100">
           Find Latest News From Different World
         </div>
       </div>
 
       {/* <!-- Late Post --> */}
-      <div class="mx-10">
-        <div class="flex mx-auto">
-          <h1 class="relative inline-block font-bold text-4xl corner mx-auto my-20 text-center text-gray-dark">
+      <div className="mx-10">
+        <div className="flex mx-auto">
+          <h1 className="relative inline-block font-bold text-4xl corner mx-auto my-20 text-center text-gray-dark">
             NEWS
           </h1>
         </div>
-        <div class="overflow-y-auto h-1/2">
-          <div class="holder space-y-4 space-x-2 mx-auto w-10/12 grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
+        <div className="overflow-y-auto h-1/2">
+          <div className="holder space-y-4 space-x-2 mx-auto w-10/12 grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
             {data?.map((post) => {
                 <NewsCard post={post} key={post.Title}/>;
               })}

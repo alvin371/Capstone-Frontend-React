@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link,Navigate} from "react-router-dom";
 import { SignIn } from "../../store/modules/auth/actions/authAction";
 import Logo from "../../component/asset/Logo.png"
 
@@ -19,24 +19,10 @@ const Login = () => {
   };
   const [errorMassage, setErrorMassage] = useState(baseError);
 
-  // const regexEmail =
-  //   /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    // if (name === "email") {
-    //   if (!regexEmail.test(value)) {
-    //     setErrorMassage({ ...errorMassage, [name]: "Email Tidak Sesuai" });
-    //   } else {
-    //     setErrorMassage({ ...errorMassage, [name]: "" });
-    //   }
-    // }
-    //  if (name === "username") {
-    //   if (value==="") {
-    //     setErrorMassage({ ...errorMassage, [name]: "user name not null" });
-    //   } 
-    // }
     if (name === "password") {
       if (value.length < 8) {
         setErrorMassage({
@@ -58,9 +44,7 @@ const Login = () => {
       alert(`Data Pendaftar Tidak Sesuai`);
       e.preventDefault();
     } else {
-      alert(`Data user "${user.email}" Berhasil Diterima`);
       e.preventDefault();
-      console.log("user "+user.username+"password "+user.password)
       userLogin({
         username: user.username,
         password: user.password,
@@ -69,7 +53,7 @@ const Login = () => {
   };
 
   if (currentState.isAuthenticated) {
-    return <Link to="/"/>;
+    return <Navigate replace to="/" />;
   }
 
   return (
@@ -187,6 +171,7 @@ const Login = () => {
           <Link
             className="text-center pt-3 text-white hover:text-gray hover:underline "
             to="/sign-up"
+            
           >
             Register here
           </Link>

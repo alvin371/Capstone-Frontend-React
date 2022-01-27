@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link,Navigate } from "react-router-dom";
 import Logo from "../../component/asset/Logo.png";
 import SideImg from "../../component/asset/sidebargym.jpg";
 import { useSelector, useDispatch } from "react-redux";
@@ -28,7 +28,7 @@ const Register = () => {
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    console.log(value, name);
+    
     if (name === "name") {
       if (!regexNama.test(value)) {
         setErrorMassage({
@@ -62,15 +62,14 @@ const Register = () => {
     });
   };
   if (currentState.isAuthenticated) {
-    return <Link to="/" />;
+    return <Navigate to="/" />;
   }
 
   const handleSubmit = (e) => {
     if (errorMassage.username !== "" || errorMassage.email !== "") {
       alert(`user Pendaftar Tidak Sesuai`);
     } else {
-      alert(`user Pendaftar "${user.name}" Berhasil Diterima`);
-      console.log(user);
+      alert(`tidak ada eror input`);
       e.preventDefault();
       addUser({
         username: user.username,

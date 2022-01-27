@@ -15,16 +15,17 @@ export const SignIn = (credentials) => {
       
     try {
       const res = await axios.post(`${API_ROUTE}/user/login`, credentials)
-      console.log("credential"+credentials)
+      // console.log("credential"+credentials)
       // let userData = res.data.response
       let userData = res.data
-      alert("cek"+userData)
-      alert("cek"+res)
-      localStorage.setItem("token", userData.token)
-      localStorage.setItem('user_data', JSON.stringify(userData));
+      // alert("cek"+userData)
+      // alert("cek"+res)
+      localStorage.setItem("token", userData.data.setItemtoken)
+      localStorage.setItem('user_data', JSON.stringify(userData.data));
       setAuthorizationToken(userData.token)
-      console.log("test"+userData)
-      console.log("value"+userData.token)
+      alert("Happy Suffering Our Website")
+      // console.log("test"+userData)
+      // console.log("value"+userData.token)
       dispatch({ type: LOGIN_SUCCESS, payload: userData })
     } catch(err) {
    
@@ -82,15 +83,17 @@ export const updateUser = (updateUser, clearInput) => {
   return async (dispatch, getState) => {
     dispatch({ type: BEFORE_USER_STATE })
     const { currentUser } = getState().Auth
+    alert("its been updated" +currentUser)
     try {
-      const res = await axios.put(`${API_ROUTE}/users/${currentUser.id}`, updateUser);
+      const res = await axios.put(`${API_ROUTE}/user/${currentUser.id}`, updateUser);
       let updatedUser = res.data.response
-
+      console.log("its been updated" +currentUser)
       dispatch({ type: UPDATE_USER_SUCCESS, payload: updatedUser })
       window.localStorage.setItem('user_data', JSON.stringify(updatedUser)); //update the localstorages
       clearInput()
     } catch (err) {
-      dispatch({ type: UPDATE_USER_ERROR, payload: err.response.data.error })
+      alert(err)
+      dispatch({ type: UPDATE_USER_ERROR, payload:err.response })
     }
   }
 }
