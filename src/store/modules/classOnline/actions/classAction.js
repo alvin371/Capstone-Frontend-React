@@ -1,6 +1,6 @@
 import API_ROUTE from "../../../../apiRoute";
 import axios from 'axios'
-import {CREATE_CLASS_SUCCESS,CREATE_CLASS_ERROR,FETCH_CLASS,FETCH_CLASS_ERROR,BEFORE_STATE_CLASS,GET_CLASS_SUCCESS,GET_CLASS_SUCCESS,DELETE_CLASS_SUCCESS,DELETE_CLASS_ERROR} from "../classTypes"
+import {CREATE_CLASS_SUCCESS,CREATE_CLASS_ERROR,FETCH_CLASS,FETCH_CLASS_ERROR,BEFORE_STATE_CLASS,GET_CLASS_SUCCESS,DELETE_CLASS_SUCCESS,DELETE_CLASS_ERROR} from "../classTypes"
 import  {history} from '../../../../history'
 
 
@@ -15,7 +15,7 @@ export const fetchPostsOnline = () => {
     try {
       const res  = await axios.get(`${API_ROUTE}/online-class`)
       // console.log("these are the post: ", res.data.response)
-      dispatch({ type: FETCH_CLASS, payload: res.data.response })
+      dispatch({ type: FETCH_CLASS, payload: res.data })
     } catch(err){
       dispatch({ type: FETCH_CLASS_ERROR, payload: err.response ? err.respons.data.error : "" })
     }
@@ -32,8 +32,9 @@ export const fetchPostsOffline = () => {
   
       try {
         const res  = await axios.get(`${API_ROUTE}/offline-class`)
-        // console.log("these are the post: ", res.data.response)
-        dispatch({ type: FETCH_CLASS, payload: res.data.response })
+        console.log("these are the post: ")
+        console.log(res.data)
+        dispatch({ type: FETCH_CLASS, payload: res.data })
       } catch(err){
         dispatch({ type: FETCH_CLASS_ERROR, payload: err.response ? err.respons.data.error : "" })
       }

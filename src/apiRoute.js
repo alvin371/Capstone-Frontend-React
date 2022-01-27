@@ -1,8 +1,6 @@
 let API_ROUTE
 
-process.env.NODE_ENV === 'development'
-  ? API_ROUTE = 'https://localhost:8000':
-  API_ROUTE = 'https://api.stevenhoyo.co/v1'
+API_ROUTE = 'http://18.116.163.50:8000'
 
 
 export default API_ROUTE

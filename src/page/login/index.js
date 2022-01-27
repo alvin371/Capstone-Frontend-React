@@ -7,31 +7,36 @@ import Logo from "../../component/asset/Logo.png"
 const Login = () => {
   const currentState = useSelector((state) => state.Auth);
   const [user, setUser] = useState({
-    email: "",
+    username: "",
     password: "",
   });
   const dispatch = useDispatch();
   const userLogin = (credentials) => dispatch(SignIn(credentials));
 
   const baseError = {
-    email: "",
+    username: "",
     password: "",
   };
   const [errorMassage, setErrorMassage] = useState(baseError);
 
-  const regexEmail =
-    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  // const regexEmail =
+  //   /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    if (name === "email") {
-      if (!regexEmail.test(value)) {
-        setErrorMassage({ ...errorMassage, [name]: "Email Tidak Sesuai" });
-      } else {
-        setErrorMassage({ ...errorMassage, [name]: "" });
-      }
-    }
+    // if (name === "email") {
+    //   if (!regexEmail.test(value)) {
+    //     setErrorMassage({ ...errorMassage, [name]: "Email Tidak Sesuai" });
+    //   } else {
+    //     setErrorMassage({ ...errorMassage, [name]: "" });
+    //   }
+    // }
+    //  if (name === "username") {
+    //   if (value==="") {
+    //     setErrorMassage({ ...errorMassage, [name]: "user name not null" });
+    //   } 
+    // }
     if (name === "password") {
       if (value.length < 8) {
         setErrorMassage({
@@ -49,21 +54,22 @@ const Login = () => {
   };
 
   const handleSubmit = async (e) => {
-    if (errorMassage.password !== "" || errorMassage.email !== "") {
+    if (errorMassage.password !== "" || errorMassage.username !== "") {
       alert(`Data Pendaftar Tidak Sesuai`);
       e.preventDefault();
     } else {
       alert(`Data user "${user.email}" Berhasil Diterima`);
       e.preventDefault();
+      console.log("user "+user.username+"password "+user.password)
       userLogin({
-        email: user.email,
+        username: user.username,
         password: user.password,
       });
     }
   };
 
   if (currentState.isAuthenticated) {
-    return <Link to="/" />;
+    return <Link to="/"/>;
   }
 
   return (
@@ -125,9 +131,9 @@ const Login = () => {
             <div className="flex flex-col pt-4">
               <input
                 required
-                type="email"
-                name="email"
-                placeholder="@ email"
+                type="text"
+                name="username"
+                placeholder="username"
                 value={user.email}
                 onChange={handleChange}
                 className="shadow appearance-none border bg-black border-white text-white rounded w-full py-2 px-3  mt-1 leading-tight focus:outline-none focus:shadow-outline"

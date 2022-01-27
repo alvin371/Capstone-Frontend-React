@@ -1,60 +1,56 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { fetchPostsOffline } from "../../../store/modules/classOnline/actions/classAction";
 import Navbar from "../../../component/pageComponent/Navbar/Navbar";
-import Header from "../../../component/asset/HeaderOnline.png";
 import Footer1 from "../../../component/smallComponent/footer";
 import Search from "../../../component/smallComponent/search";
 import Pagination from "../../../component/smallComponent/pagination";
-import Card from "../../../component/smallComponent/cardOffline";
+import Card from "../../../component/smallComponent/cardClasses";
 import TestimonyBest from "../../../component/smallComponent/testimonyBest";
+import { useSelector, useDispatch } from "react-redux";
 
 const BookOffline = () => {
-  const page = "offline";
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const posts = useSelector((state) => state.ClassState);
+
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(10);
-
+  const dispatch = useDispatch();
+  const getPosts = () => dispatch(fetchPostsOffline());
   useEffect(() => {
-    const fetchPosts = async () => {
-      setLoading(true);
-      const res = await axios.get(
-        "https://picsum.photos/v2/list?page=2&limit=100"
-      );
-      setPosts(res.data);
-      setLoading(false);
-    };
-
-    fetchPosts();
+    getPosts();
   }, []);
-
-  // Get current posts
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
-
-  // Change page
+  const data = posts.posts.data;
+  console.log("checking posts");
+  console.log(posts.posts.data);
+  console.log(data);
+  const currentPosts = data?.slice(indexOfFirstPost, indexOfLastPost);
+  console.log(posts.posts);
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <div className="bg-black bg-cover w-full space-y-10">
-      <Navbar />
-      <div className="space-y-10">
-        <img
-          src={Header}
-          alt="mid header"
-          className="w-full py-2 opacity-60 "
-        />
-        <div class=" text-gray text-center opacity-80 font-bold md:text-3xl xl:text-3xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 sm:text-xl">
-          WHAT CLASS
+    <>
+      <div
+        className=" bg-cover bg-no-repeat bg-inherit	h-screen pb-20"
+        style={{
+          backgroundImage: `url("https://images.unsplash.com/photo-1598136490937-f77b0ce520fe?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1469&q=80")`,
+        }}
+      >
+        <Navbar />
+      </div>
+      <div className="justify-center space-y-10">
+        <div class=" text-gray-light text-center opacity-80 font-bold md:text-3xl xl:text-3xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 sm:text-xl hover:opacity-100">
+          Search Class
           <div>
-            <Search page={page} />
+            <Search />
           </div>
         </div>
-        <h1 className="text-gray font-bold text-center text-4xl mt-12 mb-8">
-            Offline Classes List
-        </h1>
-        <Card posts={currentPosts} loading={loading} page={page} className="my-3" />
+        <div class="flex mx-auto">
+          <h1 class="uppercase mt-10 mb-2 relative inline-block font-bold text-4xl corner mx-auto text-center text-gray-dark">
+            Offline Workout
+          </h1>
+        </div>
+        <Card posts={currentPosts} state="offline" className="my-3" />
         <div className="flex justify-center mt-10 -mx-5 ">
           <Pagination
             postsPerPage={postsPerPage}
@@ -62,11 +58,15 @@ const BookOffline = () => {
             paginate={paginate}
           />
         </div>
-        <h1 className="text-gray font-bold text-center text-4xl ">Testimony</h1>
-        <TestimonyBest />
-        <Footer1 />
+        <div class="flex mx-auto">
+          <h1 class="uppercase mt-10 mb-2 relative inline-block font-bold text-4xl corner mx-auto text-center text-gray-dark">
+            Testimony
+          </h1>
+        </div>
       </div>
-    </div>
+      <TestimonyBest />
+      <Footer1 />
+    </>
   );
 };
 

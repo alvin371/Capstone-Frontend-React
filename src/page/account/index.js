@@ -12,6 +12,7 @@ import {storage} from "../../firebase/firebase"
 
 const Account = () => {
   const currentUserState = useSelector((state) => state.Auth);
+  
   // const [image, setImage] = useState("");
   const [editState, setEditState] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -46,12 +47,11 @@ const Account = () => {
   };
   const openEdit = () => {
     setEditState(!editState);
+    console.log(currentUserState.currentUser)
   };
-  // const AuthID = currentUserState.currentUser
-  //   ? currentUserState.currentUser.id
-  //   : "";
+
   const dispatch = useDispatch();
-  // const userAvatarUpdate = (userDetails) => dispatch(updateUserAvatar(userDetails))
+
   const userUpdate = (userDetails) =>
     dispatch(updateUser(userDetails, clearInput));
   const clearInput = () => {

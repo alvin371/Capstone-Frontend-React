@@ -10,15 +10,15 @@ const cardClasses = ({ posts, loading, state }) => {
   
   return (
     <div class="holder space-x-2 mx-auto w-10/12 grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
-      {posts.map((post) => (
+      {posts&&(posts.map((post) => (
         <div class="rounded-xl each mb-10 m-2 shadow-lg border-gray-dark bg-white relative focus:ring-blue hover:shadow-2xl hover:border-blue">
           <img
             class="rounded-t-xl w-full xl:h-52 lg:h-44 md:h-32 sm"
-            src={post.download_url}
+            src={post.image}
             alt=""
           />
           <div class="badge absolute top-0 right-0 bg-red m-2 text-white p-1 px-2 text-xs font-bold rounded">
-            {post.duration} 0:30
+            {post.time}
           </div>
           <div class="info-box text-xs flex justify-between p-1 font-medium text-white bg-gradient-to-r from-red-dark to-red ">
             <span class="mr-1 p-1 px-2 font-bold">{post.participan} Participan</span>
@@ -33,7 +33,7 @@ const cardClasses = ({ posts, loading, state }) => {
               target="_new"
               class="title text-center font-bold block cursor-pointer hover:underline"
             >
-              {post.title}
+              {post.name}
               Class 
             </a>
             <a
@@ -41,20 +41,20 @@ const cardClasses = ({ posts, loading, state }) => {
               target="_new"
               class="badge bg-red text-white rounded px-1 text-xs font-semibold cursor-pointer"
             >
-              {post.author}
+              {post.trainer}
             </a>
             <div>
+            <span class="description text-sm text-black font-semibold block py-2 ">
+              Day
+            </span>
+            <span class="description text-sm text-gray-dark font-medium block">
+              {post.day}   
+            </span>
             <span class="description text-sm text-black font-semibold block py-2 ">
               Date
             </span>
             <span class="description text-sm text-gray-dark font-medium block">
-              {post.day} ,{post.date} cek
-            </span>
-            <span class="description text-sm text-black font-semibold block py-2 ">
-              Time
-            </span>
-            <span class="description text-sm text-gray-dark font-medium block">
-              {post.time} cek
+            {post.date}
             </span>
             {
                 state==="offline"?
@@ -75,7 +75,7 @@ const cardClasses = ({ posts, loading, state }) => {
           </div>
           </div>
         </div>
-      ))}
+      )))}
 
       {/* <div class="each mb-10 m-2 shadow-lg border-gray-dark bg-gray relative">
         <img

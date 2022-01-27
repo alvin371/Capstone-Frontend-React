@@ -1,4 +1,4 @@
-import API_ROUTE from "../../../../apiRoute";
+// import API_ROUTE from "../../../../apiRoute";
 import axios from 'axios'
 import setAuthorizationToken  from "../../../../authorization/authorization";
 // import { BEFORE_STATE, SIGNUP_SUCCESS, SIGNUP_ERROR, LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT_SUCCESS, UPDATE_USER_AVATAR, UPDATE_USER_SUCCESS, UPDATE_USER_ERROR, UPDATE_USER_AVATAR_ERROR, BEFORE_AVATAR_STATE, BEFORE_USER_STATE, FORGOT_PASSWORD_SUCCESS, FORGOT_PASSWORD_ERROR, RESET_PASSWORD_SUCCESS, RESET_PASSWORD_ERROR, DELETE_USER_SUCCESS, DELETE_USER_ERROR } from '../authTypes'
@@ -6,19 +6,29 @@ import  {history} from '../../../../history'
 // import { BEFORE_STATE, SIGNUP_SUCCESS, SIGNUP_ERROR, LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT_SUCCESS, UPDATE_USER_AVATAR, UPDATE_USER_SUCCESS, UPDATE_USER_ERROR, UPDATE_USER_AVATAR_ERROR, BEFORE_AVATAR_STATE, BEFORE_USER_STATE, DELETE_USER_SUCCESS, DELETE_USER_ERROR } from '../authTypes'
 import { BEFORE_STATE, SIGNUP_SUCCESS, SIGNUP_ERROR, LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT_SUCCESS, UPDATE_USER_SUCCESS, UPDATE_USER_ERROR, BEFORE_USER_STATE, DELETE_USER_SUCCESS, DELETE_USER_ERROR } from '../authTypes'
 
-
+const API_ROUTE="http://18.116.163.50:8000"
 export const SignIn = (credentials) => {
+  console.log("cek user"+credentials.username)
+  console.log("cek password"+credentials.password)
   return async (dispatch) => {
       dispatch({ type: BEFORE_STATE }) 
+      
     try {
       const res = await axios.post(`${API_ROUTE}/user/login`, credentials)
-      let userData = res.data.response
+      console.log("credential"+credentials)
+      // let userData = res.data.response
+      let userData = res.data
+      alert("cek"+userData)
+      alert("cek"+res)
       localStorage.setItem("token", userData.token)
       localStorage.setItem('user_data', JSON.stringify(userData));
       setAuthorizationToken(userData.token)
+      console.log("test"+userData)
+      console.log("value"+userData.token)
       dispatch({ type: LOGIN_SUCCESS, payload: userData })
     } catch(err) {
-      dispatch({ type: LOGIN_ERROR, payload: err.response.data.error })
+   
+      dispatch({ type: LOGIN_ERROR, payload: err.response.message })
     }
   }
 }
@@ -29,7 +39,7 @@ export const SignOut = () => {
     setAuthorizationToken(false)
     dispatch({ type: LOGOUT_SUCCESS })
     window.localStorage.clear(); //update the localstorage
-    history.push('/login');
+    history.push('/sign-in');
   }
 }
 
@@ -38,8 +48,8 @@ export const SignUp = (newUser) => {
         dispatch({ type: BEFORE_STATE }) 
       try {
         await axios.post(`${API_ROUTE}/user/register`, newUser);
-        dispatch({ type: SIGNUP_SUCCESS })
-        history.push('/sign in');
+        dispatch({ type: SIGNUP_SUCCESS})
+        history.push('/sign-in');
       } catch(err) {
         alert(err)
 

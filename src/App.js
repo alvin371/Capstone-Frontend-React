@@ -8,6 +8,7 @@ import {
   TrainerList,
   BookOnline,
   NewsPage,
+  BookOffline,
   NewsDetail,
   Videos,
 } from "./page";
@@ -29,7 +30,7 @@ const App = () => {
         element={ <Membership />}
       />
       <Route path="/online-class" exact element={<BookOnline state={"online"} />} />
-      <Route path="/offline-class" exact element={<BookOnline state={"offline"} />} />
+      <Route path="/offline-class" exact element={<BookOffline />} />
       <Route path="content/news" exact element={<NewsPage />} />
       <Route path="/news-detail" exact element={<NewsDetail />} />
       <Route path="/videos" exact element={<Videos />} />

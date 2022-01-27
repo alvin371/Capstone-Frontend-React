@@ -1,20 +1,37 @@
 import React, { useContext, useState, useEffect } from "react";
 import Navbar from "../../../component/pageComponent/Navbar/Navbar";
 import Footer1 from "../../../component/smallComponent/footer";
-import axios from "axios";
+import { fetchPosts } from '../../../store/modules/posts/actions/postsAction';
+import { useSelector, useDispatch } from "react-redux";
+
 import NewsCard from "./newsCard";
 // import { fetchPosts } from '../../store/modules/posts/actions/postsAction';
 
 const NewsPage = () => {
-  const [data, setData] = useState([]);
-  const apiKey = "32e8942831bc4b54854ebca687eb1d61";
+  // const [data, setData] = useState([]);
+  // const apiKey = "32e8942831bc4b54854ebca687eb1d61";
+
+  // useEffect(() => {
+  //   axios
+  //     .get(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${apiKey}`)
+  //     .then((response) => setData(response.data.articles))
+  //     .catch((error) => console.log(error));
+  // }, []);
+  const postsSelector = useSelector((state) => state.PostsState);
+  
+  const dispatch = useDispatch();
+
+  // console.log("this is the post state: ", postsSelector)
+
+  const getPosts = () => dispatch(fetchPosts());
 
   useEffect(() => {
-    axios
-      .get(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${apiKey}`)
-      .then((response) => setData(response.data.articles))
-      .catch((error) => console.log(error));
-  }, []);
+    getPosts();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+  const data=postsSelector.posts.data
+  console.log("data?")
+  console.log(data)
 
   return (
     <div>
@@ -41,9 +58,8 @@ const NewsPage = () => {
         </div>
         <div class="overflow-y-auto h-1/2">
           <div class="holder space-y-4 space-x-2 mx-auto w-10/12 grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
-            {data &&
-              data.map((post) => {
-                <NewsCard post={post} />;
+            {data?.map((post) => {
+                <NewsCard post={post} key={post.Title}/>;
               })}
           </div>
         </div>
