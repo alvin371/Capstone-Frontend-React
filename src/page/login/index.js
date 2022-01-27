@@ -1,45 +1,28 @@
-import React, { useState, useRef } from "react";
-import { Link } from "react-router-dom";
-import Logo from "../../component/asset/Logo.png";
-import PropTypes from 'prop-types';
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Link,Navigate} from "react-router-dom";
+import { SignIn } from "../../store/modules/auth/actions/authAction";
+import Logo from "../../component/asset/Logo.png"
 
-async function loginUser(credentials) {
-  return fetch('http://localhost:8080/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(credentials)
-  })
-    .then(data => data.json())
- }
-
-const Login = ({setToken}) => {
-
-  const baseLogin = {
-    email: "",
+const Login = () => {
+  const currentState = useSelector((state) => state.Auth);
+  const [user, setUser] = useState({
+    username: "",
     password: "",
-  };
+  });
+  const dispatch = useDispatch();
+  const userLogin = (credentials) => dispatch(SignIn(credentials));
+
   const baseError = {
-    email: "",
+    username: "",
     password: "",
   };
   const [errorMassage, setErrorMassage] = useState(baseError);
 
-  const regexEmail =
-    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-  const [data, setData] = useState(baseLogin);
 
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    if (name === "email") {
-      if (!regexEmail.test(value)) {
-        setErrorMassage({ ...errorMassage, [name]: "Email Tidak Sesuai" });
-      } else {
-        setErrorMassage({ ...errorMassage, [name]: "" });
-      }
-    }
     if (name === "password") {
       if (value.length < 8) {
         setErrorMassage({
@@ -50,26 +33,29 @@ const Login = ({setToken}) => {
         setErrorMassage({ ...errorMassage, [name]: "" });
       }
     }
-    setData({ ...data, [name]: value });
-  };
-  const handleSubmit = async e => {
-    if (errorMassage.password !== "" || errorMassage.email !== "") {
-      alert(`Data Pendaftar Tidak Sesuai`);
-    } else {
-      alert(`Data user "${data.email}" Berhasil Diterima`);
-      console.log(data);
-      const token = await loginUser({
-        data
+    setUser({
+      ...user,
+      [name]: value,
     });
-    setToken(token);
-      resetForm();
+  };
+
+  const handleSubmit = async (e) => {
+    if (errorMassage.password !== "" || errorMassage.username !== "") {
+      alert(`Data Pendaftar Tidak Sesuai`);
+      e.preventDefault();
+    } else {
+      e.preventDefault();
+      userLogin({
+        username: user.username,
+        password: user.password,
+      });
     }
-    e.preventDefault();
   };
-  const resetForm = () => {
-    setData(baseLogin);
-    setErrorMassage(baseError);
-  };
+
+  if (currentState.isAuthenticated) {
+    return <Navigate replace to="/" />;
+  }
+
   return (
     <div className="w-full  h-screen flex flex-wrap bg-black">
       <div className="w-2/5 shadow-2xl">
@@ -108,36 +94,67 @@ const Login = ({setToken}) => {
             className="flex flex-col w-80 mx-auto md:pt-8"
             onSubmit={handleSubmit}
           >
+            {/* error login catch no record */}
+            <div className="mb-2">
+              {currentState.loginError &&
+              currentState.loginError.Incorrect_details ? (
+                <small className="color-red">
+                  {currentState.loginError.Incorrect_details}
+                </small>
+              ) : (
+                ""
+              )}
+              {currentState.loginError && currentState.loginError.No_record ? (
+                <small className="color-red">
+                  {currentState.loginError.No_record}
+                </small>
+              ) : (
+                ""
+              )}
+            </div>
             <div className="flex flex-col pt-4">
               <input
                 required
-                type="email"
-                name="email"
-                placeholder="@ email"
-                value={data.email}
+                type="text"
+                name="username"
+                placeholder="username"
+                value={user.email}
                 onChange={handleChange}
-                className="shadow appearance-none border bg-black border-white text-white rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
+                className="shadow appearance-none border bg-black border-white text-white rounded w-full py-2 px-3  mt-1 leading-tight focus:outline-none focus:shadow-outline"
               />
             </div>
+            { currentState.loginError && currentState.loginError.Invalid_email ? (
+              <small className="text-red-500">{ currentState.loginError.Invalid_email }</small>
+              ) : (
+                ""
+            )}
             <div className="flex flex-col pt-4">
               <input
                 required
                 type="password"
                 name="password"
-                value={data.password}
+                value={user.password}
                 placeholder="Password"
-                className="shadow appearance-none border bg-black border-white text-white rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
+                className="shadow appearance-none border bg-black border-white text-white rounded w-full py-2 px-3  mt-1 leading-tight focus:outline-none focus:shadow-outline"
                 onChange={handleChange}
               />
             </div>
-            <div className="text-sm text-right text-gray cursor-pointer">
-              forgot password
-            </div>
-            <ul>
+            { currentState.loginError && currentState.loginError.Invalid_password ? (
+              <small className="text-red-500">{ currentState.loginError.Invalid_password }</small>
+              ) : (
+                ""
+              )}
+              { currentState.loginError && currentState.loginError.Incorrect_password ? (
+              <small className="text-red-500">{ currentState.loginError.Incorrect_password }</small>
+              ) : (
+                ""
+              )}
+
+            <ul className="mt-3">
               {Object.keys(errorMassage).map((key) => {
                 if (errorMassage[key] !== "") {
                   return (
-                    <li className="text-red" key={key}>
+                    <li className="text-red text-sm" key={key}>
                       {errorMassage[key]}
                     </li>
                   );
@@ -154,6 +171,7 @@ const Login = ({setToken}) => {
           <Link
             className="text-center pt-3 text-white hover:text-gray hover:underline "
             to="/sign-up"
+            
           >
             Register here
           </Link>
@@ -162,8 +180,5 @@ const Login = ({setToken}) => {
     </div>
   );
 };
-Login.propTypes = {
-  setToken: PropTypes.func.isRequired
-}
 
 export default Login;

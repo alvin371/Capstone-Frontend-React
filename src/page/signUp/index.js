@@ -1,30 +1,34 @@
 import React, { useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link,Navigate } from "react-router-dom";
 import Logo from "../../component/asset/Logo.png";
 import SideImg from "../../component/asset/sidebargym.jpg";
+import { useSelector, useDispatch } from "react-redux";
 
-const SignUp = () => {
-  const baseSignUp = {
+import { SignUp } from "../../store/modules/auth/actions/authAction";
+
+const Register = () => {
+  const currentState = useSelector((state) => state.Auth);
+  const [user, setUser] = useState({
+    username: "",
     email: "",
-    name: "",
     password: "",
-    confirmPassword: "",
-  };
+  });
+
   const baseError = {
     email: "",
-    name: "",
+    username: "",
     password: "",
-    confirmPassword: "",
   };
+  const dispatch = useDispatch();
+  const addUser = (credentials) => dispatch(SignUp(credentials));
   const [errorMassage, setErrorMassage] = useState(baseError);
-  const [data, setData] = useState(baseSignUp);
   const regexNama = /^[A-Za-z ]*$/;
   const regexEmail =
     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    console.log(value, name);
+    
     if (name === "name") {
       if (!regexNama.test(value)) {
         setErrorMassage({
@@ -52,37 +56,28 @@ const SignUp = () => {
         setErrorMassage({ ...errorMassage, [name]: "" });
       }
     }
-    if (name === "confirmPassword") {
-      if (value == "") {
-        setErrorMassage({
-          ...errorMassage,
-          [name]: "password konfirmasi tidak boleh kosong",
-        });
-      } else {
-        setErrorMassage({ ...errorMassage, [name]: "" });
-      }
-    }
-    setData({ ...data, [name]: value });
+    setUser({
+      ...user,
+      [name]: value,
+    });
   };
+  if (currentState.isAuthenticated) {
+    return <Navigate to="/" />;
+  }
 
   const handleSubmit = (e) => {
-    if (errorMassage.nama !== "" || errorMassage.email !== "") {
-      alert(`Data Pendaftar Tidak Sesuai`);
+    if (errorMassage.username !== "" || errorMassage.email !== "") {
+      alert(`user Pendaftar Tidak Sesuai`);
     } else {
-      if (data.confirmPassword == data.password) {
-        alert(`Data Pendaftar "${data.nama}" Berhasil Diterima`);
-      } else {
-        alert(`password konfirmasi berbeda dengan password`);
-      }
-      console.log(data);
-      resetForm();
+      alert(`tidak ada eror input`);
+      e.preventDefault();
+      addUser({
+        username: user.username,
+        email: user.email,
+        password: user.password,
+      });
     }
     e.preventDefault();
-  };
-
-  const resetForm = () => {
-    setData(baseSignUp);
-    setErrorMassage(baseError);
   };
 
   return (
@@ -125,12 +120,20 @@ const SignUp = () => {
               <input
                 required
                 type="text"
-                name="name"
-                placeholder="Name"
-                value={data.name}
+                name="username"
+                placeholder="username"
+                value={user.username}
                 onChange={handleChange}
                 className="shadow appearance-none border bg-black border-white text-white rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
               />
+              {currentState.signupError &&
+              currentState.signupError.Taken_username ? (
+                <small className="text-red">
+                  {currentState.signupError.Taken_username}
+                </small>
+              ) : (
+                ""
+              )}
             </div>
             <div className="flex flex-col pt-4">
               <input
@@ -138,31 +141,55 @@ const SignUp = () => {
                 required
                 name="email"
                 placeholder="@ email"
-                value={data.email}
+                value={user.email}
                 onChange={handleChange}
                 className="shadow appearance-none border bg-black border-white text-white rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
               />
+              {currentState.signupError &&
+              currentState.signupError.Invalid_email ? (
+                <small className="text-red">
+                  {currentState.signupError.Invalid_email}
+                </small>
+              ) : (
+                ""
+              )}
+              {currentState.signupError &&
+              currentState.signupError.Taken_email ? (
+                <small className="text-red">
+                  {currentState.signupError.Taken_email}
+                </small>
+              ) : (
+                ""
+              )}
             </div>
             <div className="flex flex-col pt-4">
               <input
                 type="password"
                 name="password"
-                value={data.password}
+                value={user.password}
                 onChange={handleChange}
                 placeholder="Password"
                 className="shadow appearance-none border bg-black border-white text-white rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
               />
+              {currentState.signupError &&
+              currentState.signupError.Invalid_password ? (
+                <small className="text-red">
+                  {currentState.signupError.Invalid_password}
+                </small>
+              ) : (
+                ""
+              )}
             </div>
-            <div className="flex flex-col pt-4">
+            {/* <div className="flex flex-col pt-4">
               <input
-                type="password"
-                name="confirmPassword"
-                value={data.confirmPassword}
+                type="number"
+                name="phone_number"
+                value={user.phone_number}
                 onChange={handleChange}
                 placeholder="Confirmation password"
                 className="shadow appearance-none border bg-black border-white text-white rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
               />
-            </div>
+            </div> */}
             <ul>
               {Object.keys(errorMassage).map((key) => {
                 if (errorMassage[key] !== "") {
@@ -175,11 +202,20 @@ const SignUp = () => {
                 return null;
               })}
             </ul>
-            <input
-              type="submit"
-              value="Submit"
-              className="bg-gray rounded-lg text-black font-bold text-lg hover:bg-gray-700 p-2 mt-8 cursor-pointer hover:bg-gray-dark"
-            />
+            {currentState.isLoading ? (
+              <button
+                disabled
+                className="bg-gray rounded-lg text-black font-bold text-lg hover:bg-gray-700 p-2 mt-8 cursor-pointer hover:bg-gray-dark"
+              >
+                register....
+              </button>
+            ) : (
+              <input
+                type="submit"
+                value="Submit"
+                className="bg-gray rounded-lg text-black font-bold text-lg hover:bg-gray-700 p-2 mt-8 cursor-pointer hover:bg-gray-dark"
+              />
+            )}
           </form>
           <Link
             className="text-center pt-3 text-white hover:text-gray hover:underline"
@@ -193,4 +229,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default Register;
