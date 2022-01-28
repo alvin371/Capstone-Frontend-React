@@ -1,96 +1,88 @@
 import React, { useState, useRef } from "react";
 import {
-    // updateUserAvatar,
-    updateUser
-    // deleteUser,
-  } from "../../store/modules/auth/actions/authAction";
-  import Logo from "../../component/asset/Logo.png";
+  // updateUserAvatar,
+  updateUser,
+  // deleteUser,
+} from "../../store/modules/auth/actions/authAction";
+import Logo from "../../component/asset/Logo.png";
 import SideImg from "../../component/asset/sidebargym.jpg";
-  import { useSelector, useDispatch } from "react-redux";
-  import { Link,Navigate } from "react-router-dom";
-  import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
-  import {storage} from "../../firebase/firebase"
+import { useSelector, useDispatch } from "react-redux";
+import { Link, Navigate } from "react-router-dom";
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import { storage } from "../../firebase/firebase";
 
 const EditedAccount = () => {
-    const currentUserState = useSelector((state) => state.Auth);
-  
-    // const [image, setImage] = useState("");
+  const currentUserState = useSelector((state) => state.Auth);
 
-    const [progress, setProgress] = useState(0);
-    const dispatch = useDispatch();
-  
-    const userUpdate = (userDetails) =>
-      dispatch(updateUser(userDetails, clearInput));
-    const formHandler = (e) => {
-      e.preventDefault();
-      const file = e.target[0].files[0];
-      uploadFiles(file);
-    };
-    const uploadFiles = (file) => {
-      //
-      if (!file) return;
-      const sotrageRef = ref(storage, `files/${file.name}`);
-      const uploadTask = uploadBytesResumable(sotrageRef, file);
-  
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          const prog = Math.round(
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-          );
-          setProgress(prog);
-        },
-        (error) => console.log(error),
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            console.log("File available at", downloadURL);
-            setUser({...user,
-              new_avatar:downloadURL})
-          });
-        }
-      );
-    };
- 
-  
-    
-    const clearInput = () => {
-      setUser({
-        ...user,
-        new_name: "",
-        new_goals: "",
-        new_avatar: "",
-      });
-    };
-  
-    const [user, setUser] = useState({
-    //   email: currentUserState.data.email,
-    //   membership: currentUserState.data.membership,
-    //   role: currentUserState.data.role,
+  // const [image, setImage] = useState("");
+
+  const [progress, setProgress] = useState(0);
+  const dispatch = useDispatch();
+
+  const userUpdate = (userDetails) =>
+    dispatch(updateUser(userDetails, clearInput));
+  const formHandler = (e) => {
+    e.preventDefault();
+    const file = e.target[0].files[0];
+    uploadFiles(file);
+  };
+  const uploadFiles = (file) => {
+    //
+    if (!file) return;
+    const sotrageRef = ref(storage, `files/${file.name}`);
+    const uploadTask = uploadBytesResumable(sotrageRef, file);
+
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const prog = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        setProgress(prog);
+      },
+      (error) => console.log(error),
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          console.log("File available at", downloadURL);
+          setUser({ ...user, new_avatar: downloadURL });
+        });
+      }
+    );
+  };
+
+  const clearInput = () => {
+    setUser({
+      ...user,
       new_name: "",
       new_goals: "",
       new_avatar: "",
     });
-  
-    const handleChange = (e) => {
-      setUser({
-        ...user,
-        [e.target.name]: e.target.value,
-      });
-    };
-    const submitUser = (e) => {
-      e.preventDefault();
-      userUpdate({
-        // email: user.email,
-        name: user.new_name,
-        // membership: user.membership,
-        // role: user.role,
-        goals: user.new_goals,
-        avatar: user.new_avatar,
-      });
-    };
-    if (!currentUserState.isAuthenticated) {
-        return <Navigate to="/" />;
-      }
+  };
+
+  const [user, setUser] = useState({
+    new_name: "",
+    new_goals: "",
+    new_avatar: "",
+  });
+
+  const handleChange = (e) => {
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value,
+    });
+    console.log(e.target.name + e.target.value);
+  };
+  const submitUser = (e) => {
+    e.preventDefault();
+    userUpdate({
+      name: user.new_name,
+      goals: user.new_goals,
+      avatar: user.new_avatar,
+    });
+  };
+  if (!currentUserState.isAuthenticated) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <div className="w-full h-screen flex flex-wrap bg-black">
@@ -112,13 +104,15 @@ const EditedAccount = () => {
             Account Update
           </h1>
           <form onSubmit={formHandler}>
-                <input
-                  // allows you to reach into your file directory and upload image to the browser
-                  className="bg-white"
-                  type="file"
-                />
-                <button className="bg-green-jade w-20" type="submit">Upload images</button>
-        </form>
+            <input
+              // allows you to reach into your file directory and upload image to the browser
+              className="bg-white"
+              type="file"
+            />
+            <button className="bg-green-jade w-20" type="submit">
+              Upload images
+            </button>
+          </form>
           <form onSubmit={submitUser}>
             <div className="mb-4">
               <label className="block text-md font-light mb-2" for="new_name">
@@ -147,7 +141,6 @@ const EditedAccount = () => {
               />
             </div>
             <div className="mb-4">
-              
               <h2>Uploading done {progress}%</h2>
             </div>
             <div className="flex items-center justify-between mb-5">

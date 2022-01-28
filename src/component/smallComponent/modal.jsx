@@ -2,7 +2,9 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
-// import DatePicker from "./datePicker"
+import { gql, useMutation } from "@apollo/client";
+import { useSelector, useDispatch } from "react-redux";
+
 
 const style = {
   position: "absolute",
@@ -69,15 +71,27 @@ const style = {
 //     </React.Fragment>
 //   );
 // }
-
+const offlineCreate = gql`
+mutation MyMutation($class_id: Int = 10, $date: String = "", $days: String = "", $location: String = "", $name_class: String = "", $time: String = "", $user_id: Int = 10) {
+  insert_booking_offline_classes_one(object: {class_id: $class_id, date: $date, days: $days, location: $location, name_class: $name_class, time: $time, user_id: $user_id}) {
+    class_id
+    date
+    days
+    id
+    location
+    name_class
+    time
+    user_id
+  }
+}
+`;
 export default function NestedModal({ but_style, post }) {
-  // const [date, setDate] = React.useState("");
-
-  // const handleChangeDate = (event) => {
-  //   setDate(event.target.value);
-  // };
+  const currentUserState = useSelector((state) => state.Auth);
+  const user=currentUserState.currentUser
+  
 
   const [open, setOpen] = React.useState(false);
+  const [mutate, { data: dataMutation }] = useMutation(offlineCreate);
   const handleOpen = () => {
     setOpen(true);
     console.log(post);
@@ -85,6 +99,22 @@ export default function NestedModal({ but_style, post }) {
   const handleClose = () => {
     setOpen(false);
   };
+  const handleClick = () => {
+    console.log(post)
+    mutate({
+      variables:{
+        user_id:user.id,
+        name_class:post.name,
+        time:post.time,
+        location:post.location,
+        days:post.day,
+        date:post.date,
+        class_id:post.id
+      }
+    })
+    alert("done")
+  };
+
 
   return (
     <div>
@@ -117,15 +147,14 @@ export default function NestedModal({ but_style, post }) {
             Hi, here are the results of the class to be booked with the following details and please choose your schedule
           </p>
           <p className="text-base font-medium">Class Name</p>
-          <p  className="text-sm font-normal">{post.author}</p>
-          <p className="text-base font-medium">Scheduling</p>
+          <p  className="text-sm font-normal">{post.name}</p>
           {/* <Box sx={{ minWidth: 120 }}>
             <DatePicker/>
           </Box> */}
           <Button
         variant="contained"
         size="medium"
-        // onClick={handleOpen}
+        onClick={handleClick}
         className={but_style}
       >
         BOOKING

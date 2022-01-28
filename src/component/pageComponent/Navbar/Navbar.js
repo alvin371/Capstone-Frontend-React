@@ -16,6 +16,7 @@ import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import Account from "../../../page/account/index"
 import { useSelector, useDispatch } from "react-redux"
 import { SignOut } from '../../../store/modules/auth/actions/authAction'
+import Notification from '../../smallComponent/notification'
 
 const navigation = [
   { name: "Homepage", href: "/", current: true },
@@ -172,7 +173,8 @@ export default function Example({auth,setAuth}) {
                     invisible={isAuthenticated?false:true}
                     className={isAuthenticated? "animate-pulse" : ""}
                   >
-                    <NotificationsActiveIcon />
+                    {/* <NotificationsActiveIcon /> */}
+                    <Notification/>
                   </Badge>
                 </button>
 
