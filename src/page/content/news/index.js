@@ -5,6 +5,7 @@ import { fetchPosts } from '../../../store/modules/posts/actions/postsAction';
 import { useSelector, useDispatch } from "react-redux";
 
 import NewsCard from "./newsCard";
+import Pagination from "../../../component/smallComponent/pagination";
 // import { fetchPosts } from '../../store/modules/posts/actions/postsAction';
 
 const NewsPage = () => {
@@ -18,7 +19,8 @@ const NewsPage = () => {
   //     .catch((error) => console.log(error));
   // }, []);
   const postsSelector = useSelector((state) => state.PostsState);
-  
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(10);
   const dispatch = useDispatch();
 
   // console.log("this is the post state: ", postsSelector)
@@ -29,10 +31,12 @@ const NewsPage = () => {
     getPosts();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const data=postsSelector.posts.data
-  console.log("data?")
   console.log(data)
-
+  const currentPosts = data?.slice(indexOfFirstPost, indexOfLastPost);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
   return (
     <div>
       <div
@@ -56,17 +60,19 @@ const NewsPage = () => {
             NEWS
           </h1>
         </div>
-        <div className="overflow-y-auto h-1/2">
-          <div className="holder space-y-4 space-x-2 mx-auto w-10/12 grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
-            {data?.map((post) => {
-                <NewsCard post={post} key={post.Title}/>;
-              })}
-          </div>
+        
+           <NewsCard post={currentPosts} />
+           <div className="flex justify-center mt-10 -mx-5 ">
+          <Pagination
+            postsPerPage={postsPerPage}
+            totalPosts={data?.length}
+            paginate={paginate}
+          />
         </div>
       </div>
       <Footer1 />
     </div>
-  );
-};
+  )
+}
 
 export default NewsPage;
