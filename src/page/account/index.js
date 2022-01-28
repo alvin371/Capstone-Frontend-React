@@ -1,119 +1,123 @@
 import React, { useState } from "react";
 // import { Link } from "react-router-dom";
-import {
-  // updateUserAvatar,
-  updateUser
-  // deleteUser,
-} from "../../store/modules/auth/actions/authAction";
+// import {
+//   // updateUserAvatar,
+//   updateUser
+//   // deleteUser,
+// } from "../../store/modules/auth/actions/authAction";
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
-import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
-import {storage} from "../../firebase/firebase"
+// import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+// import {storage} from "../../firebase/firebase"
 
 const Account = () => {
   const currentUserState = useSelector((state) => state.Auth);
-  
+  const user=currentUserState.currentUser
+  console.log(currentUserState)
+  console.log(user)
   // const [image, setImage] = useState("");
-  const [editState, setEditState] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const formHandler = (e) => {
-    e.preventDefault();
-    const file = e.target[0].files[0];
-    uploadFiles(file);
-  };
-  const uploadFiles = (file) => {
-    //
-    if (!file) return;
-    const sotrageRef = ref(storage, `files/${file.name}`);
-    const uploadTask = uploadBytesResumable(sotrageRef, file);
+  // const [editState, setEditState] = useState(false);
+  // const [progress, setProgress] = useState(0);
+  // const formHandler = (e) => {
+  //   e.preventDefault();
+  //   const file = e.target[0].files[0];
+  //   uploadFiles(file);
+  // };
+  // const uploadFiles = (file) => {
+  //   //
+  //   if (!file) return;
+  //   const sotrageRef = ref(storage, `files/${file.name}`);
+  //   const uploadTask = uploadBytesResumable(sotrageRef, file);
 
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        const prog = Math.round(
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        );
-        setProgress(prog);
-      },
-      (error) => console.log(error),
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          console.log("File available at", downloadURL);
-          setUser({...user,
-            new_avatar:downloadURL})
-        });
-      }
-    );
-  };
-  const openEdit = () => {
-    setEditState(!editState);
-    console.log(currentUserState.currentUser)
-  };
+  //   uploadTask.on(
+  //     "state_changed",
+  //     (snapshot) => {
+  //       const prog = Math.round(
+  //         (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+  //       );
+  //       setProgress(prog);
+  //     },
+  //     (error) => console.log(error),
+  //     () => {
+  //       getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+  //         console.log("File available at", downloadURL);
+  //         setUser({...user,
+  //           new_avatar:downloadURL})
+  //       });
+  //     }
+  //   );
+  // };
+  // const openEdit = () => {
+  //   setEditState(!editState);
+  //   console.log(currentUserState.currentUser)
+  // };
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const userUpdate = (userDetails) =>
-    dispatch(updateUser(userDetails, clearInput));
-  const clearInput = () => {
-    setUser({
-      ...user,
-      new_name: "",
-      new_goals: "",
-      new_avatar: "",
-    });
-  };
+  // // const userUpdate = (userDetails) =>
+  // //   dispatch(updateUser(userDetails, clearInput));
+  // const clearInput = () => {
+  //   setUser({
+  //     ...user,
+  //     new_name: "",
+  //     new_goals: "",
+  //     new_avatar: "",
+  //   });
+  // };
 
-  const [user, setUser] = useState({
-    email: currentUserState.currentUser.email,
-    membership: currentUserState.currentUser.membership,
-    role: currentUserState.currentUser.role,
-    new_name: "",
-    new_goals: "",
-    new_avatar: "",
-  });
+  // const [user, setUser] = useState({
+  //   email: currentUserState.currentUser.email,
+  //   membership: currentUserState.currentUser.membership,
+  //   role: currentUserState.currentUser.role,
+  //   new_name: "",
+  //   new_goals: "",
+  //   new_avatar: "",
+  // });
 
-  const handleChange = (e) => {
-    setUser({
-      ...user,
-      [e.target.name]: e.target.value,
-    });
-  };
-  const submitUser = (e) => {
-    e.preventDefault();
-    userUpdate({
-      email: user.email,
-      name: user.name,
-      membership: user.membership,
-      role: user.role,
-      goals: user.new_goals,
-      avatar: user.new_avatar,
-    });
-  };
+  // const handleChange = (e) => {
+  //   setUser({
+  //     ...user,
+  //     [e.target.name]: e.target.value,
+  //   });
+  // };
+  // const submitUser = (e) => {
+  //   e.preventDefault();
+  //   userUpdate({
+  //     email: user.email,
+  //     name: user.name,
+  //     membership: user.membership,
+  //     role: user.role,
+  //     goals: user.new_goals,
+  //     avatar: user.new_avatar,
+  //   });
+  // };
 
   return (
     <>
       <div className="text-center p-6  border-b">
         <img
           className="h-24 w-24 rounded-full mx-auto"
-          src={currentUserState.currentUser.avatar}
-          alt={currentUserState.currentUser.name}
+          src={user.avatar}
+          alt={user.username}
         />
         <p className="pt-2 text-lg font-semibold">
-          {currentUserState.currentUser.name}
+          {user.username}
         </p>
-        <p className="text-sm ">{user.email}</p>
+        <p className="text-sm ">
+          {currentUserState.email}
+          </p>
         <div className="mt-4">
-          <button
-            to="/"
+          <Link
+            to="/user/edited"
             className="border rounded-full py-2 px-4 text-xs font-semibold text-white bg-red hover:bg-red-dark"
-            onClick={openEdit}
           >
             Edit Profile
-          </button>
+          </Link>
         </div>
       </div>
       <div className= "border-b">
-        <div className={editState ? "hidden" : ""}>
+       
         <a href="#" className="mt-2 px-4 py-2 hover:bg-gray flex">
           <div className="text-gray-800">
             <svg
@@ -133,7 +137,7 @@ const Account = () => {
               Membership Status
             </p>
             <p className="text-xs text-gray-500">
-              {currentUserState.currentUser.membership}
+              {user.membership}
             </p>
           </div>
         </a>
@@ -154,7 +158,7 @@ const Account = () => {
           <div className="pl-3">
             <p className="text-sm font-medium text-gray-800 leading-none">Role</p>
             <p className="text-xs text-gray-500">
-              {currentUserState.currentUser.role}
+              {user.role}
             </p>
           </div>
         </a>
@@ -184,12 +188,12 @@ const Account = () => {
           <div className="pl-3">
             <p className="text-sm font-medium text-gray-800 leading-none">Goals</p>
             <p className="text-xs text-gray-500">
-              {currentUserState.currentUser.goals}
+              {user.goals}
             </p>
           </div>
         </a>
-        </div>
-        <div classNameName={editState ? "" : "hidden"}>
+        
+        {/* <div classNameName={editState ? "" : "hidden"}>
           <form onSubmit={submitUser}>
             <div className="mb-4">
               <label className="block text-md font-light mb-2" for="new_name">
@@ -236,7 +240,7 @@ const Account = () => {
               </button>
             </div>
           </form>
-        </div>
+        </div> */}
       </div>
     </>
   );

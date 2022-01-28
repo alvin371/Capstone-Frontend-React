@@ -9,29 +9,29 @@ const cardClasses = ({ posts, loading, state }) => {
     "rounded-xl bg-red mx-auto font-semibold mb-1 text-white hover:text-gray hover:bg-red-dark";
   
   return (
-    <div class="holder space-x-2 mx-auto w-10/12 grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
+    <div className="holder space-x-2 mx-auto w-10/12 grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
       {posts&&(posts.map((post) => (
-        <div class="rounded-xl each mb-10 m-2 shadow-lg border-gray-dark bg-white relative focus:ring-blue hover:shadow-2xl hover:border-blue">
+        <div key={post.id} className="rounded-xl each mb-10 m-2 shadow-lg border-gray-dark bg-white relative focus:ring-blue hover:shadow-2xl hover:border-blue">
           <img
-            class="rounded-t-xl w-full xl:h-52 lg:h-44 md:h-32 sm"
+            className="rounded-t-xl w-full xl:h-52 lg:h-44 md:h-32 sm"
             src={post.image}
             alt=""
           />
-          <div class="badge absolute top-0 right-0 bg-red m-2 text-white p-1 px-2 text-xs font-bold rounded">
+          <div className="badge absolute top-0 right-0 bg-red m-2 text-white p-1 px-2 text-xs font-bold rounded">
             {post.time}
           </div>
-          <div class="info-box text-xs flex justify-between p-1 font-medium text-white bg-gradient-to-r from-red-dark to-red ">
-            <span class="mr-1 p-1 px-2 font-bold">{post.participan} Participan</span>
-            <span  class={state!="online"?"text-white border-l mr-1 p-1 px-2 font-medium":"text-green-jade border-l mr-1 p-1 px-2 font-medium"}>
+          <div className="info-box text-xs flex justify-between p-1 font-medium text-white bg-gradient-to-r from-red-dark to-red ">
+            <span className="mr-1 p-1 px-2 font-bold">{post.participan} Participan</span>
+            <span  className={state!="online"?"text-white border-l mr-1 p-1 px-2 font-medium":"text-green-jade border-l mr-1 p-1 px-2 font-medium"}>
                 {state}
             </span>
           </div>
         
-          <div class="desc p-4 text-gray-dark">
+          <div className="desc p-4 text-gray-dark">
             <a
               href="https://www.youtube.com/watch?v=dvqT-E74Qlo"
               target="_new"
-              class="title text-center font-bold block cursor-pointer hover:underline"
+              className="title text-center font-bold block cursor-pointer hover:underline"
             >
               {post.name}
               Class 
@@ -39,37 +39,37 @@ const cardClasses = ({ posts, loading, state }) => {
             <a
               href="https://www.youtube.com/user/sam14319"
               target="_new"
-              class="badge bg-red text-white rounded px-1 text-xs font-semibold cursor-pointer"
+              className="badge bg-red text-white rounded px-1 text-xs font-semibold cursor-pointer"
             >
               {post.trainer}
             </a>
             <div>
-            <span class="description text-sm text-black font-semibold block py-2 ">
+            <span className="description text-sm text-black font-semibold block py-2 ">
               Day
             </span>
-            <span class="description text-sm text-gray-dark font-medium block">
+            <span className="description text-sm text-gray-dark font-medium block">
               {post.day}   
             </span>
-            <span class="description text-sm text-black font-semibold block py-2 ">
+            <span className="description text-sm text-black font-semibold block py-2 ">
               Date
             </span>
-            <span class="description text-sm text-gray-dark font-medium block">
+            <span className="description text-sm text-gray-dark font-medium block">
             {post.date}
             </span>
             {
                 state==="offline"?
                 <>
-                <span class="description text-sm text-black font-semibold block py-2 ">
+                <span className="description text-sm text-black font-semibold block py-2 ">
                 Location
               </span>
-              <span class="description text-sm text-gray-dark font-medium block">
+              <span className="description text-sm text-gray-dark font-medium block">
                 {post.location} Location
               </span>
               </>: <>
-                <span class="description text-sm text-black font-semibold block py-2 ">
+                <span className="description text-sm text-black font-semibold block py-2 ">
                 Location
               </span>
-              <span class="description text-sm text-gray-dark font-medium block">
+              <span className="description text-sm text-gray-dark font-medium block">
                 {post.url} Location
               </span>
               </>
