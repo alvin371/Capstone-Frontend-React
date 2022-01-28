@@ -1,6 +1,7 @@
 import React from "react";
 import CardActions from "@mui/material/CardActions";
 import Modal from "../../component/smallComponent/modal";
+import ModalOnline from "../../component/smallComponent/modalOnline";
 const cardClasses = ({ posts, loading, state }) => {
   if (loading) {
     return <h2>Loading...</h2>;
@@ -76,7 +77,7 @@ const cardClasses = ({ posts, loading, state }) => {
             }
             <CardActions>
             <div className="mx-auto">
-              <Modal but_style={but_style} post={post}/>
+              {state==="offline"?<Modal but_style={but_style} post={post}/>:<ModalOnline but_style={but_style} post={post}/>}
             </div>
           </CardActions>
           </div>

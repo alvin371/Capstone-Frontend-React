@@ -28,7 +28,7 @@ export const SignIn = (credentials) => {
       // console.log("value"+userData.token)
       dispatch({ type: LOGIN_SUCCESS, payload: userData })
     } catch(err) {
-   
+      alert(err)
       dispatch({ type: LOGIN_ERROR, payload: err.response.message })
     }
   }
@@ -78,26 +78,51 @@ export const SignUp = (newUser) => {
 //   }
 // }
 
+// export const updateUser = (updateUser, clearInput) => {
+
+//   return async (dispatch, getState) => {
+//     dispatch({ type: BEFORE_USER_STATE })
+//     const { currentUser } = getState().Auth
+//     console.log("id")
+//     console.log(currentUser.data.id)
+//     try {
+      
+//       const res = await axios.put(`${API_ROUTE}/user/${currentUser.data.id}`, updateUser);
+//       let updateUser = res.data.response
+//       console.log("its been updated" )
+//       console.log(updateUser)
+//       dispatch({ type: UPDATE_USER_SUCCESS, payload: updateUser })
+//       window.localStorage.setItem('user_data', JSON.stringify(updateUser)); //update the localstorages
+//       clearInput()
+//     } catch (err) {
+//       alert(err)
+//       dispatch({ type: UPDATE_USER_ERROR, payload:err.response })
+//     }
+//   }
+// }
+
 export const updateUser = (updateUser, clearInput) => {
 
   return async (dispatch, getState) => {
     dispatch({ type: BEFORE_USER_STATE })
     const { currentUser } = getState().Auth
-    alert("its been updated" +currentUser)
     try {
-      const res = await axios.put(`${API_ROUTE}/user/${currentUser.id}`, updateUser);
-      let updatedUser = res.data.response
-      console.log("its been updated" +currentUser)
-      dispatch({ type: UPDATE_USER_SUCCESS, payload: updatedUser })
-      window.localStorage.setItem('user_data', JSON.stringify(updatedUser)); //update the localstorages
+      console.log("what id")
+      console.log(currentUser.data.id)
+      console.log("what update")
+      console.log(updateUser)
+      const res = await axios.put(`${API_ROUTE}/user/${currentUser.data.id}`, updateUser);
+      let updatedUser = res.data
+      console.log("find response")
+      console.log(updatedUser)
+      dispatch({ type: UPDATE_USER_SUCCESS, payload: currentUser.data })
+      // window.localStorage.setItem('user_data', JSON.stringify(updatedUser)); //update the localstorages
       clearInput()
     } catch (err) {
-      alert(err)
       dispatch({ type: UPDATE_USER_ERROR, payload:err.response })
     }
   }
 }
-
 export const deleteUser = (id)  => {
 
   return async dispatch => {
